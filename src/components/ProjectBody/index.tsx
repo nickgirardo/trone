@@ -1,5 +1,7 @@
 import { List } from "../../reducers/Lists";
+import { List as ListEl } from "../List";
 import { NewList } from "../NewList";
+
 import "./index.scss";
 
 interface Props {
@@ -11,16 +13,9 @@ export const ProjectBody = ({ project, lists }: Props) => (
   <div className="project-body">
     <div className="lists">
       {lists.map((l) => (
-        <ListEl name={l.name} key={l.id} />
+        <ListEl name={l.name} id={l.id} key={l.id} />
       ))}
     </div>
     <NewList project={project} />
-  </div>
-);
-
-const ListEl = ({ name }: { name: string }) => (
-  <div className="list">
-    <div className="list-head">{name}</div>
-    <div className="list-body">TODO lol</div>
   </div>
 );

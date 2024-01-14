@@ -11,8 +11,8 @@ const initialState: { [k: string]: Card } = {};
 // TODO potential future actions
 // - rename card
 // - delete card
-export const listsSlice = createSlice({
-  name: "lists",
+export const cardsSlice = createSlice({
+  name: "cards",
   initialState,
   reducers: {
     createCard: (
@@ -55,4 +55,4 @@ export const listsSlice = createSlice({
   },
 });
 
-export const { createCard, moveCard } = listsSlice.actions;
+export const { createCard, moveCard } = cardsSlice.actions;
