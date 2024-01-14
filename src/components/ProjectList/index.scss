@@ -1,0 +1,53 @@
+.project-list {
+  width: 100vw;
+  height: 42px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  background-color: #6787a4;
+
+  .projects {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .project {
+    // TODO properly clear button styles
+    appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    padding: 8px;
+    background-color: #bd7ca3;
+    color: white;
+    margin-right: 2px;
+
+    &.active {
+      background-color: #d59bbe;
+    }
+  }
+
+  .new-project {
+    background-color: #80b2df;
+    width: 42px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    button {
+      // TODO properly clear button styles
+      appearance: none;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+
+      color: white;
+      font-size: 24px;
+    }
+  }
+}
