@@ -2,7 +2,7 @@ import { MouseEventHandler, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../store";
 import cn from "classnames";
 import { NewProjectModal } from "../modals/NewProject";
-import { createProject, switchToProject } from "../../reducers/ProjectList";
+import { createProject, switchToProject } from "../../reducers/Projects";
 
 import "./index.scss";
 
@@ -11,7 +11,7 @@ export const ProjectList = () => {
     useState<boolean>(false);
 
   const { projects, currentProject } = useAppSelector(
-    (state) => state.projectList
+    (state) => state.projects
   );
   const dispatch = useAppDispatch();
 

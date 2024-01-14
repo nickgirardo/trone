@@ -7,7 +7,8 @@ import {
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 // Reducers/ Slices
-import { projectListSlice } from "./reducers/ProjectList.ts";
+import { projectsSlice } from "./reducers/Projects.ts";
+import { listsSlice } from "./reducers/Lists.ts";
 
 // TODO any
 const logger: Middleware = (store: any) => (next: any) => (action: any) => {
@@ -21,7 +22,8 @@ const logger: Middleware = (store: any) => (next: any) => (action: any) => {
 
 export const store = configureStore({
   reducer: {
-    projectList: projectListSlice.reducer,
+    projects: projectsSlice.reducer,
+    lists: listsSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

@@ -7,8 +7,11 @@ const initialState = {
   currentProject: null as string | null,
 };
 
-export const projectListSlice = createSlice({
-  name: "projectList",
+// TODO potential future actions
+// - rename project
+// - delete project
+export const projectsSlice = createSlice({
+  name: "projects",
   initialState,
   reducers: {
     createProject: (state, action: PayloadAction<string>) => {
@@ -22,4 +25,4 @@ export const projectListSlice = createSlice({
   },
 });
 
-export const { createProject, switchToProject } = projectListSlice.actions;
+export const { createProject, switchToProject } = projectsSlice.actions;
