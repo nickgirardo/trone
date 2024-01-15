@@ -20,7 +20,9 @@ export const CardList = ({ id, name }: Props) => {
 
   return (
     <div className="card-list">
-      <div className="list-head">{name}</div>
+      <div className="list-head" title={name}>
+        {name}
+      </div>
       <div className="list-body">
         <Droppable droppableId={id} direction="vertical">
           {(provided, _snapshot) => (

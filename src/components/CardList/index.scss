@@ -19,6 +19,9 @@
 
   .list-head {
     border-bottom: 1px solid #33334a;
+    // Cut off long list names
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .card {
@@ -27,6 +30,7 @@
     background-color: white;
     border-radius: 2px;
     box-shadow: 2px 1px 1px #bec6cc;
+    hyphens: auto;
   }
 
   .new-card {

@@ -27,6 +27,12 @@
     color: white;
     margin-right: 2px;
 
+    // Things for very long project names
+    max-width: 40ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
     &.active {
       background-color: #d59bbe;
     }

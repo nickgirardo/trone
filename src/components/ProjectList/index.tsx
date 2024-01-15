@@ -58,6 +58,7 @@ const Project = ({ name, currentProject, onClick }: ProjectProps) => (
   <button
     className={cn("project", name === currentProject && "active")}
     onClick={onClick}
+    title={name}
   >
     {name}
   </button>
