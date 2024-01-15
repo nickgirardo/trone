@@ -3,8 +3,12 @@
   height: min-content;
   width: 280px;
   padding: 1em 0.5em;
-  margin: 0.25em;
+  margin: 0.5em 0.25em;
   border-radius: 4px;
+
+  .list-body {
+    margin-top: 0.5em;
+  }
 
   .list-head {
     border-bottom: 1px solid #33334a;
@@ -12,8 +16,13 @@
 
   .card {
     margin: 0.25em;
+    padding: 0.25em 0.5em;
     background-color: white;
     border-radius: 2px;
     box-shadow: 2px 1px 1px #bec6cc;
+  }
+
+  .new-card {
+    margin-top: 0.5em;
   }
 }
