@@ -1,5 +1,5 @@
 import { List } from "../../reducers/Lists";
-import { List as ListEl } from "../List";
+import { CardList } from "../CardList";
 import { NewList } from "../NewList";
 
 import "./index.scss";
@@ -13,7 +13,7 @@ export const ProjectBody = ({ project, lists }: Props) => (
   <div className="project-body">
     <div className="lists">
       {lists.map((l) => (
-        <ListEl name={l.name} id={l.id} key={l.id} />
+        <CardList name={l.name} id={l.id} key={l.id} />
       ))}
     </div>
     <NewList project={project} />

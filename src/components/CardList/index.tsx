@@ -7,8 +7,7 @@ interface Props {
   name: string;
 }
 
-// TODO probably rename to CardList
-export const List = ({ id, name }: Props) => {
+export const CardList = ({ id, name }: Props) => {
   const cards = useAppSelector((state) =>
     Object.entries(state.cards)
       .filter(([_id, card]) => card.list === id)
