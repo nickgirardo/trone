@@ -15,7 +15,7 @@ export const CardList = ({ id, name }: Props) => {
   );
 
   return (
-    <div className="list">
+    <div className="card-list">
       <div className="list-head">{name}</div>
       <div className="list-body">
         <div className="cards">

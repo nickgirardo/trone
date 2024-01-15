@@ -1,4 +1,4 @@
-.list {
+.card-list {
   background-color: #cdddec;
   height: min-content;
   width: 280px;
@@ -8,5 +8,12 @@
 
   .list-head {
     border-bottom: 1px solid #33334a;
+  }
+
+  .card {
+    margin: 0.25em;
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 2px 1px 1px #bec6cc;
   }
 }
