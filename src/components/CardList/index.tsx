@@ -41,8 +41,8 @@ export const CardList = ({ id, name }: Props) => {
             </div>
           )}
         </Droppable>
-        <NewCard list={id} />
       </div>
+      <NewCard list={id} />
     </div>
   );
 };
