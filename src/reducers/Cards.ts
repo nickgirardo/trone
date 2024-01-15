@@ -35,19 +35,25 @@ export const cardsSlice = createSlice({
     ) => {
       const { id, newList, newOrder } = action.payload;
 
-      // TODO this method of rearranging will leave gaps in the ordinals of both the moved card's
-      // new and old list in certain cases
-      // This is a problem, because the createCard method assumes that the an order of the length of
-      // cards in a list will place it as the final card in a list
-      // A simple compact method should be written and applied to the new and old lists after the bellow
-      // However for now the buggy behaviour is acceptable
-      const cardsToIncrement = Object.entries(state)
-        .filter(
-          ([_id, card]) => card.list === newList && card.order >= newOrder
-        )
-        .map(([id, _card]) => id);
+      const oldOrder = state[id].order;
+      const oldList = state[id].list;
 
-      for (const card in cardsToIncrement) state[card].order++;
+      // TODO
+      if (oldList !== newList) return;
+
+      if (oldOrder === newOrder) return;
+
+      if (oldOrder > newOrder) {
+        // Moving cards up in a list
+        for (const card of Object.values(state)) {
+          if (card.order < oldOrder && card.order >= newOrder) card.order++;
+        }
+      } else {
+        // Moving cards down in a list
+        for (const card of Object.values(state)) {
+          if (card.order > oldOrder && card.order <= newOrder) card.order--;
+        }
+      }
 
       state[id].list = newList;
       state[id].order = newOrder;
