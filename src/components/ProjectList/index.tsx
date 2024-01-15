@@ -36,8 +36,8 @@ export const ProjectList = () => {
           />
         ))}
       </div>
-      <div className="new-project">
-        <button onClick={() => setShowNewProjectModal(true)}>+</button>
+      <div className="new-project" onClick={() => setShowNewProjectModal(true)}>
+        <button>+</button>
       </div>
       <NewProjectModal
         isOpen={showNewProjectModal}
