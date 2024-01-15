@@ -38,20 +38,39 @@ export const cardsSlice = createSlice({
       const oldOrder = state[id].order;
       const oldList = state[id].list;
 
-      // TODO
-      if (oldList !== newList) return;
-
-      if (oldOrder === newOrder) return;
-
-      if (oldOrder > newOrder) {
-        // Moving cards up in a list
+      if (oldList !== newList) {
+        // Move between different lists
         for (const card of Object.values(state)) {
-          if (card.order < oldOrder && card.order >= newOrder) card.order++;
+          // Move cards up from old list
+          if (card.list === oldList && card.order > oldOrder) card.order--;
+          // Move cards down in new list
+          else if (card.list === newList && card.order >= newOrder)
+            card.order++;
         }
       } else {
-        // Moving cards down in a list
-        for (const card of Object.values(state)) {
-          if (card.order > oldOrder && card.order <= newOrder) card.order--;
+        // Move within a list
+        if (oldOrder === newOrder) return;
+
+        if (oldOrder > newOrder) {
+          // Moving cards up in a list
+          for (const card of Object.values(state)) {
+            if (
+              card.list === newList &&
+              card.order < oldOrder &&
+              card.order >= newOrder
+            )
+              card.order++;
+          }
+        } else {
+          // Moving cards down in a list
+          for (const card of Object.values(state)) {
+            if (
+              card.list === newList &&
+              card.order > oldOrder &&
+              card.order <= newOrder
+            )
+              card.order--;
+          }
         }
       }
 

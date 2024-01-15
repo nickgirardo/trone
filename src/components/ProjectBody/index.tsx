@@ -4,7 +4,7 @@ import { NewList } from "../NewList";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 
 import "./index.scss";
-import { useAppDispatch, useAppSelector } from "../../store";
+import { useAppDispatch } from "../../store";
 import { moveCard } from "../../reducers/Cards";
 
 interface Props {
@@ -14,7 +14,6 @@ interface Props {
 
 export const ProjectBody = ({ project, lists }: Props) => {
   const dispatch = useAppDispatch();
-  const cards = useAppSelector((state) => state.cards);
 
   const handleDrag = (ev: DropResult) => {
     if (!ev.destination) return;
@@ -23,7 +22,7 @@ export const ProjectBody = ({ project, lists }: Props) => {
       moveCard({
         newOrder: ev.destination.index,
         id: ev.draggableId,
-        newList: cards[ev.draggableId].list,
+        newList: ev.destination.droppableId,
       })
     );
   };
