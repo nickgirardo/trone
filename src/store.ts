@@ -3,6 +3,7 @@ import {
   ThunkAction,
   Action,
   Middleware,
+  createSelector,
 } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
@@ -41,3 +42,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const createAppSelector = createSelector.withTypes<RootState>();

@@ -1,20 +1,28 @@
 import { ProjectList } from "../ProjectList";
 import { ProjectBody } from "../ProjectBody";
-import { useAppSelector } from "../../store";
+import { createAppSelector, useAppSelector } from "../../store";
 
 import "./index.scss";
 
 function App() {
-  const { currentProject, lists } = useAppSelector((state) => {
-    const { currentProject } = state.projects;
+  const appSelector = createAppSelector(
+    [(state) => state.projects, (state) => state.lists],
+    (projects, lists) => {
+      const { currentProject } = projects;
 
-    if (currentProject === null) {
-      return { currentProject, lists: [] };
+      if (currentProject === null) {
+        return { currentProject, lists: [] };
+      }
+
+      const projectLists = Object.entries(lists)
+        .filter(([_id, l]) => l.project === currentProject)
+        .map(([id, l]) => ({ id, ...l }));
+
+      return { currentProject, lists: projectLists };
     }
+  );
 
-    const lists = state.lists.filter((l) => l.project === currentProject);
-    return { currentProject, lists };
-  });
+  const { currentProject, lists } = useAppSelector(appSelector);
 
   return (
     <div className="app">

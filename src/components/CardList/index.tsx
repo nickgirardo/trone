@@ -1,5 +1,5 @@
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import { useAppSelector } from "../../store";
+import { createAppSelector, useAppSelector } from "../../store";
 import { NewCard } from "./NewCard";
 import "./index.scss";
 
@@ -9,13 +9,14 @@ interface Props {
 }
 
 export const CardList = ({ id, name }: Props) => {
-  const cards = useAppSelector((state) =>
-    Object.entries(state.cards)
+  const cardSelector = createAppSelector([(state) => state.cards], (cards) =>
+    Object.entries(cards)
       .filter(([_id, card]) => card.list === id)
       .map(([id, card]) => ({ id, ...card }))
+      .sort((a, b) => a.order - b.order)
   );
 
-  const sortedCards = cards.sort((a, b) => a.order - b.order);
+  const cards = useAppSelector(cardSelector);
 
   return (
     <div className="card-list">
@@ -28,7 +29,7 @@ export const CardList = ({ id, name }: Props) => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {sortedCards.map((card) => (
+              {cards.map((card) => (
                 <Card
                   key={card.id}
                   id={card.id}

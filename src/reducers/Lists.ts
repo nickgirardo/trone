@@ -2,12 +2,10 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type List = {
   project: string;
-  // id as UUIDv4
-  id: string;
   name: string;
 };
 
-const initialState = [] as Array<List>;
+const initialState: { [k: string]: List } = {};
 
 // TODO potential future actions
 // - rename list
@@ -20,7 +18,7 @@ export const listsSlice = createSlice({
       state,
       action: PayloadAction<{ project: string; name: string }>
     ) => {
-      state.push({ ...action.payload, id: crypto.randomUUID() });
+      state[crypto.randomUUID()] = action.payload;
     },
   },
 });
