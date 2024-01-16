@@ -1,9 +1,16 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-// TODO better representation for projects
-// Having projects represented solely by their names will cause issues with collisions
-const initialState = {
-  projects: [] as Array<string>,
+export type Project = {
+  name: string;
+};
+
+export type ProjectWithId = Project & { id: string };
+
+const initialState: {
+  projects: { [k: string]: Project };
+  currentProject: string | null;
+} = {
+  projects: {},
   currentProject: null as string | null,
 };
 
@@ -15,9 +22,11 @@ export const projectsSlice = createSlice({
   initialState,
   reducers: {
     createProject: (state, action: PayloadAction<string>) => {
-      state.projects.push(action.payload);
+      const id = crypto.randomUUID();
+      state.projects[id] = { name: action.payload };
 
-      state.currentProject = action.payload;
+      // Switch to the newly created project
+      state.currentProject = id;
     },
     switchToProject: (state, action: PayloadAction<string>) => {
       state.currentProject = action.payload;

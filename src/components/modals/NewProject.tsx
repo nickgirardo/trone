@@ -14,6 +14,11 @@ export const NewProjectModal = ({
 }: Props) => {
   const [name, setName] = useState<string>("");
 
+  const onSubmit = () => {
+    setName("");
+    handleNewProject(name);
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -30,7 +35,8 @@ export const NewProjectModal = ({
         <input
           type="submit"
           value="New Project"
-          onClick={() => handleNewProject(name)}
+          onClick={onSubmit}
+          disabled={!name.length}
         />
         <button onClick={() => closeModal()}>Cancel</button>
       </form>

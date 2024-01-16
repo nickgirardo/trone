@@ -1,5 +1,5 @@
 import { MouseEventHandler, useState } from "react";
-import { useAppSelector, useAppDispatch } from "../../store";
+import { useAppSelector, useAppDispatch, createAppSelector } from "../../store";
 import cn from "classnames";
 import { NewProjectModal } from "../modals/NewProject";
 import { createProject, switchToProject } from "../../reducers/Projects";
@@ -10,9 +10,18 @@ export const ProjectList = () => {
   const [showNewProjectModal, setShowNewProjectModal] =
     useState<boolean>(false);
 
-  const { projects, currentProject } = useAppSelector(
-    (state) => state.projects
+  const projectsSelector = createAppSelector(
+    [(state) => state.projects],
+    (projects) => ({
+      currentProject: projects.currentProject,
+      projects: Object.entries(projects.projects).map(([id, p]) => ({
+        id,
+        ...p,
+      })),
+    })
   );
+
+  const { projects, currentProject } = useAppSelector(projectsSelector);
   const dispatch = useAppDispatch();
 
   const onModalComplete = (name: string) => {
@@ -20,8 +29,8 @@ export const ProjectList = () => {
     setShowNewProjectModal(false);
   };
 
-  const setCurrentProject = (name: string) => {
-    if (name !== currentProject) dispatch(switchToProject(name));
+  const setCurrentProject = (id: string) => {
+    if (id !== currentProject) dispatch(switchToProject(id));
   };
 
   return (
@@ -29,10 +38,11 @@ export const ProjectList = () => {
       <div className="projects">
         {projects.map((proj) => (
           <Project
-            key={proj}
-            name={proj}
+            key={proj.id}
+            id={proj.id}
+            name={proj.name}
             currentProject={currentProject}
-            onClick={() => setCurrentProject(proj)}
+            onClick={() => setCurrentProject(proj.id)}
           />
         ))}
       </div>
@@ -49,14 +59,15 @@ export const ProjectList = () => {
 };
 
 interface ProjectProps {
+  id: string;
   name: string;
   currentProject: string | null;
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Project = ({ name, currentProject, onClick }: ProjectProps) => (
+const Project = ({ id, name, currentProject, onClick }: ProjectProps) => (
   <button
-    className={cn("project", name === currentProject && "active")}
+    className={cn("project", id === currentProject && "active")}
     onClick={onClick}
     title={name}
   >
