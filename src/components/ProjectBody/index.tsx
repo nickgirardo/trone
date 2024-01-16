@@ -1,4 +1,4 @@
-import { List } from "../../reducers/Lists";
+import { ListWithId } from "../../reducers/Lists";
 import { CardList } from "../CardList";
 import { NewList } from "../NewList";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
@@ -9,7 +9,7 @@ import { moveCard } from "../../reducers/Cards";
 
 interface Props {
   project: string;
-  lists: Array<List>;
+  lists: Array<ListWithId>;
 }
 
 export const ProjectBody = ({ project, lists }: Props) => {
@@ -20,7 +20,7 @@ export const ProjectBody = ({ project, lists }: Props) => {
 
     dispatch(
       moveCard({
-        newOrder: ev.destination.index,
+        newIndex: ev.destination.index,
         id: ev.draggableId,
         newList: ev.destination.droppableId,
       })

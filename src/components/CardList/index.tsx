@@ -13,7 +13,7 @@ export const CardList = ({ id, name }: Props) => {
     Object.entries(cards)
       .filter(([_id, card]) => card.list === id)
       .map(([id, card]) => ({ id, ...card }))
-      .sort((a, b) => a.order - b.order)
+      .sort((a, b) => a.index - b.index)
   );
 
   const cards = useAppSelector(cardSelector);
@@ -36,7 +36,7 @@ export const CardList = ({ id, name }: Props) => {
                   key={card.id}
                   id={card.id}
                   name={card.name}
-                  order={card.order}
+                  index={card.index}
                 />
               ))}
               {provided.placeholder}
@@ -52,11 +52,11 @@ export const CardList = ({ id, name }: Props) => {
 interface CardProps {
   id: string;
   name: string;
-  order: number;
+  index: number;
 }
 
-const Card = ({ name, id, order }: CardProps) => (
-  <Draggable draggableId={id} index={order}>
+const Card = ({ name, id, index }: CardProps) => (
+  <Draggable draggableId={id} index={index}>
     {(provided, _snapshot) => (
       <div
         className="card"

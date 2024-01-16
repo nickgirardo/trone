@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 type Card = {
   list: string;
   name: string;
-  order: number;
+  index: number;
 };
 
 const initialState: { [k: string]: Card } = {};
@@ -19,63 +19,63 @@ export const cardsSlice = createSlice({
       state,
       action: PayloadAction<{ list: string; name: string }>
     ) => {
-      // Order here is the length of the cards already in the list
+      // Index here is the length of the cards already in the list
       // This will place the card after all existing cards
-      const order = Object.values(state).filter(
+      const index = Object.values(state).filter(
         (card) => card.list === action.payload.list
       ).length;
       state[crypto.randomUUID()] = {
         ...action.payload,
-        order,
+        index,
       };
     },
     moveCard: (
       state,
-      action: PayloadAction<{ id: string; newList: string; newOrder: number }>
+      action: PayloadAction<{ id: string; newList: string; newIndex: number }>
     ) => {
-      const { id, newList, newOrder } = action.payload;
+      const { id, newList, newIndex } = action.payload;
 
-      const oldOrder = state[id].order;
+      const oldIndex = state[id].index;
       const oldList = state[id].list;
 
       if (oldList !== newList) {
         // Move between different lists
         for (const card of Object.values(state)) {
           // Move cards up from old list
-          if (card.list === oldList && card.order > oldOrder) card.order--;
+          if (card.list === oldList && card.index > oldIndex) card.index--;
           // Move cards down in new list
-          else if (card.list === newList && card.order >= newOrder)
-            card.order++;
+          else if (card.list === newList && card.index >= newIndex)
+            card.index++;
         }
       } else {
         // Move within a list
-        if (oldOrder === newOrder) return;
+        if (oldIndex === newIndex) return;
 
-        if (oldOrder > newOrder) {
+        if (oldIndex > newIndex) {
           // Moving cards up in a list
           for (const card of Object.values(state)) {
             if (
               card.list === newList &&
-              card.order < oldOrder &&
-              card.order >= newOrder
+              card.index < oldIndex &&
+              card.index >= newIndex
             )
-              card.order++;
+              card.index++;
           }
         } else {
           // Moving cards down in a list
           for (const card of Object.values(state)) {
             if (
               card.list === newList &&
-              card.order > oldOrder &&
-              card.order <= newOrder
+              card.index > oldIndex &&
+              card.index <= newIndex
             )
-              card.order--;
+              card.index--;
           }
         }
       }
 
       state[id].list = newList;
-      state[id].order = newOrder;
+      state[id].index = newIndex;
     },
   },
 });
