@@ -16,7 +16,8 @@ function App() {
 
       const projectLists = Object.entries(lists)
         .filter(([_id, l]) => l.project === currentProject)
-        .map(([id, l]) => ({ id, ...l }));
+        .map(([id, l]) => ({ id, ...l }))
+        .sort((a, b) => a.index - b.index);
 
       return { currentProject, lists: projectLists };
     }

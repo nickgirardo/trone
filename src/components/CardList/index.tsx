@@ -6,9 +6,10 @@ import "./index.scss";
 interface Props {
   id: string;
   name: string;
+  index: number;
 }
 
-export const CardList = ({ id, name }: Props) => {
+export const CardList = ({ id, name, index }: Props) => {
   const cardSelector = createAppSelector([(state) => state.cards], (cards) =>
     Object.entries(cards)
       .filter(([_id, card]) => card.list === id)
@@ -19,33 +20,41 @@ export const CardList = ({ id, name }: Props) => {
   const cards = useAppSelector(cardSelector);
 
   return (
-    <div className="card-list">
-      <div className="list-head" title={name}>
-        {name}
-      </div>
-      <div className="list-body">
-        <Droppable droppableId={id} direction="vertical">
-          {(provided, _snapshot) => (
-            <div
-              className="cards"
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {cards.map((card) => (
-                <Card
-                  key={card.id}
-                  id={card.id}
-                  name={card.name}
-                  index={card.index}
-                />
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </div>
-      <NewCard list={id} />
-    </div>
+    <Draggable draggableId={id} index={index}>
+      {(provided, _snapshot) => (
+        <div
+          className="card-list"
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+        >
+          <div className="list-head" title={name} {...provided.dragHandleProps}>
+            {name}
+          </div>
+          <div className="list-body">
+            <Droppable droppableId={id} direction="vertical" type="card">
+              {(provided, _snapshot) => (
+                <div
+                  className="cards"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {cards.map((card) => (
+                    <Card
+                      key={card.id}
+                      id={card.id}
+                      name={card.name}
+                      index={card.index}
+                    />
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </div>
+          <NewCard list={id} />
+        </div>
+      )}
+    </Draggable>
   );
 };
 
