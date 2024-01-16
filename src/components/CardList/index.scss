@@ -12,6 +12,11 @@
   border-radius: 4px;
   box-shadow: 2px 1px 1px #abafb3;
 
+  .cards {
+    // The drop target must have some height to be active (or width for horizontal lists)
+    min-height: 1px;
+  }
+
   .list-body {
     overflow: auto;
     margin-top: 0.5em;
