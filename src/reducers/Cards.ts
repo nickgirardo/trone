@@ -1,10 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-type Card = {
+export type Card = {
   list: string;
   name: string;
   index: number;
 };
+
+export type CardWithId = Card & { id: string };
 
 const initialState: { [k: string]: Card } = {};
 

@@ -36,7 +36,6 @@ export const ProjectBody = ({ project, lists }: Props) => {
   return (
     <div className="project-body">
       <DragDropContext onDragEnd={handleDrag}>
-        {/* TODO `project` seems like the best id here, but not sure */}
         <Droppable
           droppableId={project}
           direction="horizontal"
