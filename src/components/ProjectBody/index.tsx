@@ -1,15 +1,16 @@
-import { ListWithId, moveList } from "../../reducers/Lists";
+import { List, moveList } from "../../reducers/Lists";
 import { CardList } from "../CardList";
 import { NewList } from "../NewList";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
-
-import "./index.scss";
 import { useAppDispatch } from "../../store";
 import { moveCard } from "../../reducers/Cards";
+import { WithId } from "../../util";
+
+import "./index.scss";
 
 interface Props {
   project: string;
-  lists: Array<ListWithId>;
+  lists: Array<WithId<List>>;
 }
 
 export const ProjectBody = ({ project, lists }: Props) => {

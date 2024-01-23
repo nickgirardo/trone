@@ -6,8 +6,6 @@ export type List = {
   index: number;
 };
 
-export type ListWithId = List & { id: string };
-
 const initialState: { [k: string]: List } = {};
 
 // TODO potential future actions

@@ -4,8 +4,6 @@ export type Project = {
   name: string;
 };
 
-export type ProjectWithId = Project & { id: string };
-
 const initialState: {
   projects: { [k: string]: Project };
   currentProject: string | null;

@@ -6,8 +6,6 @@ export type Card = {
   index: number;
 };
 
-export type CardWithId = Card & { id: string };
-
 const initialState: { [k: string]: Card } = {};
 
 // TODO potential future actions

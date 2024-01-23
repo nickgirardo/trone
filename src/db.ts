@@ -1,9 +1,9 @@
 import { DBSchema, IDBPDatabase, openDB } from "idb";
-import { ProjectWithId } from "./reducers/Projects";
-import { CardWithId } from "./reducers/Cards";
-import { ListWithId } from "./reducers/Lists";
+import { Project } from "./reducers/Projects";
+import { Card } from "./reducers/Cards";
+import { List } from "./reducers/Lists";
 import { RootState } from "./store";
-import { fromId } from "./util";
+import { WithId, fromId } from "./util";
 
 let db: IDBPDatabase<Schema> | null = null;
 const dbName = "test_db";
@@ -12,15 +12,15 @@ const dbVersion = 1;
 interface Schema extends DBSchema {
   projects: {
     key: string;
-    value: ProjectWithId;
+    value: WithId<Project>;
   };
   lists: {
     key: string;
-    value: ListWithId;
+    value: WithId<List>;
   };
   cards: {
     key: string;
-    value: CardWithId;
+    value: WithId<Card>;
   };
   currentProject: { key: "data"; value: string | null };
 }
@@ -95,7 +95,7 @@ export async function setCurrentProject(
 
 async function putProjects(
   db: IDBPDatabase<Schema>,
-  projects: Array<ProjectWithId>
+  projects: Array<WithId<Project>>
 ) {
   if (!projects.length) return;
 
@@ -104,7 +104,7 @@ async function putProjects(
   await tx.done;
 }
 
-async function putLists(db: IDBPDatabase<Schema>, lists: Array<ListWithId>) {
+async function putLists(db: IDBPDatabase<Schema>, lists: Array<WithId<List>>) {
   if (!lists.length) return;
 
   const tx = db.transaction("lists", "readwrite");
@@ -112,7 +112,7 @@ async function putLists(db: IDBPDatabase<Schema>, lists: Array<ListWithId>) {
   await tx.done;
 }
 
-async function putCards(db: IDBPDatabase<Schema>, cards: Array<CardWithId>) {
+async function putCards(db: IDBPDatabase<Schema>, cards: Array<WithId<Card>>) {
   if (!cards.length) return;
 
   const tx = db.transaction("cards", "readwrite");
@@ -122,63 +122,66 @@ async function putCards(db: IDBPDatabase<Schema>, cards: Array<CardWithId>) {
 
 export async function addProjects(
   db: IDBPDatabase<Schema>,
-  projects: Array<ProjectWithId>
+  projects: Array<WithId<Project>>
 ) {
   await putProjects(db, projects);
 }
 export async function addProject(
   db: IDBPDatabase<Schema>,
-  project: ProjectWithId
+  project: WithId<Project>
 ) {
   await putProjects(db, [project]);
 }
 export async function updateProjects(
   db: IDBPDatabase<Schema>,
-  projects: Array<ProjectWithId>
+  projects: Array<WithId<Project>>
 ) {
   await putProjects(db, projects);
 }
 export async function updateProject(
   db: IDBPDatabase<Schema>,
-  project: ProjectWithId
+  project: WithId<Project>
 ) {
   await putProjects(db, [project]);
 }
 
 export async function addLists(
   db: IDBPDatabase<Schema>,
-  lists: Array<ListWithId>
+  lists: Array<WithId<List>>
 ) {
   await putLists(db, lists);
 }
-export async function addList(db: IDBPDatabase<Schema>, list: ListWithId) {
+export async function addList(db: IDBPDatabase<Schema>, list: WithId<List>) {
   await putLists(db, [list]);
 }
 export async function updateLists(
   db: IDBPDatabase<Schema>,
-  lists: Array<ListWithId>
+  lists: Array<WithId<List>>
 ) {
   await putLists(db, lists);
 }
-export async function updateList(db: IDBPDatabase<Schema>, list: ListWithId) {
+export async function updateList(db: IDBPDatabase<Schema>, list: WithId<List>) {
   await putLists(db, [list]);
 }
 
 export async function addCards(
   db: IDBPDatabase<Schema>,
-  cards: Array<CardWithId>
+  cards: Array<WithId<Card>>
 ) {
   await putCards(db, cards);
 }
-export async function addCard(db: IDBPDatabase<Schema>, cards: CardWithId) {
+export async function addCard(db: IDBPDatabase<Schema>, cards: WithId<Card>) {
   await putCards(db, [cards]);
 }
 export async function updateCards(
   db: IDBPDatabase<Schema>,
-  cards: Array<CardWithId>
+  cards: Array<WithId<Card>>
 ) {
   await putCards(db, cards);
 }
-export async function updateCard(db: IDBPDatabase<Schema>, cards: CardWithId) {
+export async function updateCard(
+  db: IDBPDatabase<Schema>,
+  cards: WithId<Card>
+) {
   await putCards(db, [cards]);
 }
