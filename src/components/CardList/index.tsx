@@ -1,7 +1,9 @@
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import { createAppSelector, useAppSelector } from "../../store";
+import { createAppSelector, useAppDispatch, useAppSelector } from "../../store";
+import { editList } from "../../reducers/Lists";
 import { NewCard } from "./NewCard";
 import { Card } from "../Card";
+import { EditableLabel } from "../EditableLabel";
 
 import "./index.scss";
 
@@ -12,6 +14,8 @@ interface Props {
 }
 
 export const CardList = ({ id, name, index }: Props) => {
+  const dispatch = useAppDispatch();
+
   const cardSelector = createAppSelector([(state) => state.cards], (cards) =>
     Object.entries(cards)
       .filter(([_id, card]) => card.list === id)
@@ -30,7 +34,10 @@ export const CardList = ({ id, name, index }: Props) => {
           {...provided.draggableProps}
         >
           <div className="list-head" title={name} {...provided.dragHandleProps}>
-            {name}
+            <EditableLabel
+              label={name}
+              onEdit={(name) => dispatch(editList({ id, name }))}
+            />
           </div>
           <div className="list-body">
             <Droppable droppableId={id} direction="vertical" type="card">

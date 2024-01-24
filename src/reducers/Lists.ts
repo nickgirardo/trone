@@ -26,6 +26,10 @@ export const listsSlice = createSlice({
       ).length;
       state[crypto.randomUUID()] = { index, ...action.payload };
     },
+    editList: (state, action: PayloadAction<{ id: string; name?: string }>) => {
+      if (action.payload.name)
+        state[action.payload.id].name = action.payload.name;
+    },
     moveList: (
       state,
       action: PayloadAction<{ id: string; newIndex: number }>
@@ -64,4 +68,4 @@ export const listsSlice = createSlice({
   },
 });
 
-export const { createList, moveList } = listsSlice.actions;
+export const { createList, editList, moveList } = listsSlice.actions;
