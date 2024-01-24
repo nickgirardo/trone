@@ -3,7 +3,7 @@ import { Draggable } from "react-beautiful-dnd";
 import cn from "classnames";
 import { useAppDispatch } from "../../store";
 import { CardNotesModal } from "../modals/CardNotes";
-import { updateNotes } from "../../reducers/Cards";
+import { updateCard } from "../../reducers/Cards";
 
 import "./index.scss";
 
@@ -20,8 +20,8 @@ export const Card = ({ id, name, notes, index }: Props) => {
   const [showNewProjectModal, setShowNewProjectModal] =
     useState<boolean>(false);
 
-  const onModalComplete = (notes: string) => {
-    dispatch(updateNotes({ id, notes }));
+  const onModalComplete = (name: string, notes: string) => {
+    dispatch(updateCard({ id, name, notes }));
     setShowNewProjectModal(false);
   };
 
@@ -43,8 +43,11 @@ export const Card = ({ id, name, notes, index }: Props) => {
       </Draggable>
       <CardNotesModal
         isOpen={showNewProjectModal}
+        name={name}
         notes={notes}
-        handleUpdateNotes={(notes: string) => onModalComplete(notes)}
+        handleUpdateCard={(name: string, notes: string) =>
+          onModalComplete(name, notes)
+        }
         closeModal={() => setShowNewProjectModal(false)}
       />
     </div>

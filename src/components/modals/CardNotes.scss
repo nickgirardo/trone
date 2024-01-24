@@ -1,8 +1,14 @@
-.card-notes {
-  .notes {
-    textarea {
-      width: 100%;
-      min-height: 20em;
+.edit-card {
+  .card-name input {
+    width: 100%;
+    font-size: 16px;
+  }
+  .card-notes {
+    .notes {
+      textarea {
+        width: 100%;
+        min-height: 20em;
+      }
     }
   }
 }

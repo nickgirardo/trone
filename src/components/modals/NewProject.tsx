@@ -27,6 +27,7 @@ export const NewProjectModal = ({
     >
       <form>
         <input
+          placeholder="Project name"
           value={name}
           onChange={(ev: ChangeEvent<HTMLInputElement>) =>
             setName(ev.target.value)

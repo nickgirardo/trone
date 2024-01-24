@@ -79,13 +79,17 @@ export const cardsSlice = createSlice({
       state[id].list = newList;
       state[id].index = newIndex;
     },
-    updateNotes: (
+    updateCard: (
       state,
-      action: PayloadAction<{ id: string; notes: string }>
+      action: PayloadAction<{ id: string; name?: string; notes?: string }>
     ) => {
-      state[action.payload.id].notes = action.payload.notes;
+      if (action.payload.name)
+        state[action.payload.id].name = action.payload.name;
+
+      if (action.payload.notes)
+        state[action.payload.id].notes = action.payload.notes;
     },
   },
 });
 
-export const { createCard, moveCard, updateNotes } = cardsSlice.actions;
+export const { createCard, moveCard, updateCard } = cardsSlice.actions;
