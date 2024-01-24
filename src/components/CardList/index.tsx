@@ -45,6 +45,7 @@ export const CardList = ({ id, name, index }: Props) => {
                       key={card.id}
                       id={card.id}
                       name={card.name}
+                      notes={card.notes}
                       index={card.index}
                     />
                   ))}

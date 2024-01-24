@@ -4,6 +4,7 @@ export type Card = {
   list: string;
   name: string;
   index: number;
+  notes: string;
 };
 
 const initialState: { [k: string]: Card } = {};
@@ -26,6 +27,7 @@ export const cardsSlice = createSlice({
       ).length;
       state[crypto.randomUUID()] = {
         ...action.payload,
+        notes: "",
         index,
       };
     },
@@ -77,7 +79,13 @@ export const cardsSlice = createSlice({
       state[id].list = newList;
       state[id].index = newIndex;
     },
+    updateNotes: (
+      state,
+      action: PayloadAction<{ id: string; notes: string }>
+    ) => {
+      state[action.payload.id].notes = action.payload.notes;
+    },
   },
 });
 
-export const { createCard, moveCard } = cardsSlice.actions;
+export const { createCard, moveCard, updateNotes } = cardsSlice.actions;

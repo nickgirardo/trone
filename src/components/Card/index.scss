@@ -6,7 +6,7 @@
   box-shadow: 2px 1px 1px #bec6cc;
   hyphens: auto;
 
-  &.with-notes::before {
+  &.with-notes .maybe-notes::before {
     content: "✍ ";
   }
 }
