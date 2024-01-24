@@ -1,0 +1,12 @@
+.card {
+  margin: 0.25em;
+  padding: 0.25em 0.5em;
+  background-color: white;
+  border-radius: 2px;
+  box-shadow: 2px 1px 1px #bec6cc;
+  hyphens: auto;
+
+  &.with-notes::before {
+    content: "✍ ";
+  }
+}

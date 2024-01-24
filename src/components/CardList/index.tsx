@@ -1,6 +1,8 @@
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { createAppSelector, useAppSelector } from "../../store";
 import { NewCard } from "./NewCard";
+import { Card } from "../Card";
+
 import "./index.scss";
 
 interface Props {
@@ -57,24 +59,3 @@ export const CardList = ({ id, name, index }: Props) => {
     </Draggable>
   );
 };
-
-interface CardProps {
-  id: string;
-  name: string;
-  index: number;
-}
-
-const Card = ({ name, id, index }: CardProps) => (
-  <Draggable draggableId={id} index={index}>
-    {(provided, _snapshot) => (
-      <div
-        className="card"
-        ref={provided.innerRef}
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-      >
-        {name}
-      </div>
-    )}
-  </Draggable>
-);
