@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type Project = {
   name: string;
+  index: number;
 };
 
 const initialState: {
@@ -21,7 +22,10 @@ export const projectsSlice = createSlice({
   reducers: {
     createProject: (state, action: PayloadAction<string>) => {
       const id = crypto.randomUUID();
-      state.projects[id] = { name: action.payload };
+      state.projects[id] = {
+        name: action.payload,
+        index: Object.keys(state.projects).length,
+      };
 
       // Switch to the newly created project
       state.currentProject = id;

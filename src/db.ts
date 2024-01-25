@@ -7,7 +7,7 @@ import { WithId, fromId } from "./util";
 
 let db: IDBPDatabase<Schema> | null = null;
 const dbName = "test_db";
-const dbVersion = 1;
+const dbVersion = 4;
 
 interface Schema extends DBSchema {
   projects: {
@@ -33,10 +33,10 @@ export async function getDB() {
 }
 
 export async function initDB() {
-  let needsInitialData = false;
+  let migration: Promise<unknown> = Promise.resolve();
 
   db = await openDB<Schema>(dbName, dbVersion, {
-    upgrade(db, oldVersion) {
+    upgrade(db, oldVersion, _newVersion, tx) {
       // Creating the db for the first time
       if (oldVersion === 0) {
         db.createObjectStore("projects", { keyPath: "id" });
@@ -44,21 +44,27 @@ export async function initDB() {
         db.createObjectStore("cards", { keyPath: "id" });
         db.createObjectStore("currentProject");
 
-        needsInitialData = true;
-      } else {
-        throw new Error(
-          `Attempting to upgrade db "${dbName} from unknown version ${oldVersion}`
-        );
+        // Currently the currentProject starting as null is the only initial data we need to set
+        migration = migration.then(async function () {
+          await tx.objectStore("currentProject").put(null, "data");
+        });
+      }
+      if (oldVersion <= 3) {
+        // Adding indicies to projects
+        migration = migration.then(async function () {
+          const projects = await tx.objectStore("projects").getAll();
+          for (const [ix, p] of projects.entries()) {
+            p.index = ix;
+          }
+          await Promise.all(
+            projects.map((p) => tx.objectStore("projects").put(p))
+          );
+        });
       }
     },
   });
 
-  if (needsInitialData) {
-    // Currently the currentProject starting as null is the only initial data we need to set
-    const tx = db.transaction("currentProject", "readwrite");
-    await tx.store.put(null, "data");
-    await tx.done;
-  }
+  await migration;
 }
 
 // TODO any
