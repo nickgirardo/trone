@@ -2,9 +2,14 @@ import { MouseEventHandler, useState } from "react";
 import { useAppSelector, useAppDispatch, createAppSelector } from "../../store";
 import cn from "classnames";
 import { NewProjectModal } from "../modals/NewProject";
-import { createProject, switchToProject } from "../../reducers/Projects";
+import {
+  createProject,
+  editProject,
+  switchToProject,
+} from "../../reducers/Projects";
 
 import "./index.scss";
+import { EditableLabel } from "../EditableLabel";
 
 export const ProjectList = () => {
   const [showNewProjectModal, setShowNewProjectModal] =
@@ -41,7 +46,7 @@ export const ProjectList = () => {
             key={proj.id}
             id={proj.id}
             name={proj.name}
-            currentProject={currentProject}
+            active={currentProject === proj.id}
             onClick={() => setCurrentProject(proj.id)}
           />
         ))}
@@ -61,16 +66,27 @@ export const ProjectList = () => {
 interface ProjectProps {
   id: string;
   name: string;
-  currentProject: string | null;
+  active: boolean;
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Project = ({ id, name, currentProject, onClick }: ProjectProps) => (
-  <button
-    className={cn("project", id === currentProject && "active")}
-    onClick={onClick}
-    title={name}
-  >
-    {name}
-  </button>
-);
+const Project = ({ id, name, active, onClick }: ProjectProps) => {
+  const dispatch = useAppDispatch();
+
+  return (
+    <button
+      className={cn("project", active && "active")}
+      onClick={onClick}
+      title={name}
+    >
+      {active ? (
+        <EditableLabel
+          label={name}
+          onEdit={(name) => dispatch(editProject({ id, name }))}
+        />
+      ) : (
+        <span>{name}</span>
+      )}
+    </button>
+  );
+};

@@ -26,10 +26,18 @@ export const projectsSlice = createSlice({
       // Switch to the newly created project
       state.currentProject = id;
     },
+    editProject: (
+      state,
+      action: PayloadAction<{ id: string; name?: string }>
+    ) => {
+      if (action.payload.name)
+        state.projects[action.payload.id].name = action.payload.name;
+    },
     switchToProject: (state, action: PayloadAction<string>) => {
       state.currentProject = action.payload;
     },
   },
 });
 
-export const { createProject, switchToProject } = projectsSlice.actions;
+export const { createProject, editProject, switchToProject } =
+  projectsSlice.actions;
