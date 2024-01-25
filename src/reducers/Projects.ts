@@ -37,11 +37,35 @@ export const projectsSlice = createSlice({
       if (action.payload.name)
         state.projects[action.payload.id].name = action.payload.name;
     },
+    moveProject: (
+      state,
+      action: PayloadAction<{ id: string; newIndex: number }>
+    ) => {
+      const { id, newIndex } = action.payload;
+
+      const oldIndex = state.projects[id].index;
+
+      if (oldIndex === newIndex) return;
+
+      if (oldIndex > newIndex) {
+        // Moving project down
+        for (const proj of Object.values(state.projects)) {
+          if (proj.index < oldIndex && proj.index >= newIndex) proj.index++;
+        }
+      } else {
+        // Moving project up
+        for (const proj of Object.values(state.projects)) {
+          if (proj.index > oldIndex && proj.index <= newIndex) proj.index--;
+        }
+      }
+
+      state.projects[id].index = newIndex;
+    },
     switchToProject: (state, action: PayloadAction<string>) => {
       state.currentProject = action.payload;
     },
   },
 });
 
-export const { createProject, editProject, switchToProject } =
+export const { createProject, editProject, moveProject, switchToProject } =
   projectsSlice.actions;

@@ -42,7 +42,7 @@ export const listsSlice = createSlice({
       if (oldIndex === newIndex) return;
 
       if (oldIndex > newIndex) {
-        // Moving list up among lists of the project
+        // Moving list down among lists of the project
         for (const list of Object.values(state)) {
           if (
             list.project === project &&
