@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import cn from "classnames";
 import { useAppDispatch } from "../../store";
-import { CardNotesModal } from "../modals/CardNotes";
+import { EditCardModal } from "../modals/EditCard";
 import { updateCard } from "../../reducers/Cards";
 
 import "./index.scss";
@@ -41,7 +41,7 @@ export const Card = ({ id, name, notes, index }: Props) => {
           </div>
         )}
       </Draggable>
-      <CardNotesModal
+      <EditCardModal
         isOpen={showNewProjectModal}
         name={name}
         notes={notes}

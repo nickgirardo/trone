@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from "react";
 import Modal from "react-modal";
 
 import "./modal.scss";
-import "./CardNotes.scss";
+import "./edit-card.scss";
 
 interface Props {
   name: string;
@@ -12,7 +12,7 @@ interface Props {
   handleUpdateCard: (name: string, notes: string) => void;
 }
 
-export const CardNotesModal = ({
+export const EditCardModal = ({
   name,
   notes,
   isOpen,
