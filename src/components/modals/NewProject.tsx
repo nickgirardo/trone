@@ -1,6 +1,9 @@
 import { ChangeEvent, useState } from "react";
 import Modal from "react-modal";
 
+import "./modal.scss";
+import "./new-project-modal.scss";
+
 interface Props {
   isOpen: boolean;
   closeModal: () => void;
@@ -24,22 +27,26 @@ export const NewProjectModal = ({
       isOpen={isOpen}
       onRequestClose={closeModal}
       contentLabel="New Project"
+      className="modal new-project-modal"
     >
+      <h2>New Project</h2>
       <form>
         <input
-          placeholder="Project name"
+          placeholder="Project Name"
           value={name}
           onChange={(ev: ChangeEvent<HTMLInputElement>) =>
             setName(ev.target.value)
           }
         />
-        <input
-          type="submit"
-          value="New Project"
-          onClick={onSubmit}
-          disabled={!name.length}
-        />
-        <button onClick={() => closeModal()}>Cancel</button>
+        <div className="controls">
+          <input
+            type="submit"
+            value="New Project"
+            onClick={onSubmit}
+            disabled={!name.length}
+          />
+          <button onClick={() => closeModal()}>Cancel</button>
+        </div>
       </form>
     </Modal>
   );

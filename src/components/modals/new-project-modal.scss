@@ -1,0 +1,18 @@
+.new-project-modal {
+  form {
+    display: flex;
+    flex-direction: column;
+
+    input[placeholder="Project Name"] {
+      max-width: 40ch;
+    }
+
+    .controls {
+      margin-top: 0.5em;
+
+      :not(:last-child) {
+        margin-right: 0.25em;
+      }
+    }
+  }
+}
