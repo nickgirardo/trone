@@ -27,25 +27,29 @@ export const NewProjectModal = ({
       isOpen={isOpen}
       onRequestClose={closeModal}
       contentLabel="New Project"
-      className="modal new-project-modal"
+      className="modal modal-sm new-project-modal"
     >
       <h2>New Project</h2>
       <form>
-        <input
-          placeholder="Project Name"
-          value={name}
-          onChange={(ev: ChangeEvent<HTMLInputElement>) =>
-            setName(ev.target.value)
-          }
-        />
-        <div className="controls">
+        <div className="modal-body">
           <input
-            type="submit"
-            value="New Project"
-            onClick={onSubmit}
-            disabled={!name.length}
+            placeholder="Project Name"
+            value={name}
+            onChange={(ev: ChangeEvent<HTMLInputElement>) =>
+              setName(ev.target.value)
+            }
           />
-          <button onClick={() => closeModal()}>Cancel</button>
+        </div>
+        <div className="modal-footer">
+          <div className="controls">
+            <button onClick={() => closeModal()}>Cancel</button>
+            <input
+              type="submit"
+              value="New Project"
+              onClick={onSubmit}
+              disabled={!name.length}
+            />
+          </div>
         </div>
       </form>
     </Modal>

@@ -1,14 +1,46 @@
+.ReactModal__Overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .modal {
   position: absolute;
-  inset: 40px;
   border: 1px solid rgb(204, 204, 204);
   background: rgb(255, 255, 255);
   overflow: auto;
   border-radius: 4px;
   outline: none;
-  padding: 20px;
+  padding: 1.5em;
+
+  height: fit-content;
+
+  &.modal-sm {
+    width: 40em;
+    left: calc(50vw - 20em);
+  }
+
+  &.modal-md {
+    width: 50em;
+    left: calc(50vw - 25em);
+  }
+
+  .modal-body {
+    padding: 1em 0;
+  }
+
+  .modal-footer {
+    .controls {
+      float: right;
+
+      :not(:last-child) {
+        margin-right: 0.5em;
+      }
+    }
+  }
 
   h2 {
     border-bottom: 1px solid rgb(204, 204, 204);
+    margin: 0;
   }
 }
