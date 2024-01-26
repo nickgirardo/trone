@@ -12,6 +12,7 @@ import { dbMiddleware } from "./dbMiddleware";
 import { Project, projectsSlice } from "./reducers/Projects";
 import { List, listsSlice } from "./reducers/Lists";
 import { Card, cardsSlice } from "./reducers/Cards";
+import { Preferences, preferencesSlice } from "./reducers/Preferences";
 
 // NOTE defining this manually rather than using `ReturnType<typeof store.getState>` to avoid
 // circular references in the type system :(
@@ -22,6 +23,7 @@ export type RootState = {
   };
   lists: Record<string, List>;
   cards: Record<string, Card>;
+  preferences: Preferences;
 };
 
 // TODO any
@@ -40,6 +42,7 @@ export const store = (preloadedState: RootState) =>
       projects: projectsSlice.reducer,
       lists: listsSlice.reducer,
       cards: cardsSlice.reducer,
+      preferences: preferencesSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(dbMiddleware).concat(logger),

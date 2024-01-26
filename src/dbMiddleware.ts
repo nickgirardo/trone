@@ -9,6 +9,7 @@ import {
   updateLists,
   getDB,
   dumpDb,
+  setPreferences,
 } from "./db";
 import { diff, withId } from "./util";
 
@@ -28,10 +29,16 @@ export const dbMiddleware = (store: any) => (next: any) =>
     const [newLists, updatedLists] = diff(before.lists, after.lists);
     const [newCards, updatedCards] = diff(before.cards, after.cards);
 
+    const prefsChanged =
+      before.preferences.delProjWarning !== after.preferences.delProjWarning ||
+      before.preferences.delListWarning !== after.preferences.delListWarning ||
+      before.preferences.delCardWarning !== after.preferences.delCardWarning;
+
     await Promise.all([
       after.projects.currentProject !== before.projects.currentProject
         ? setCurrentProject(db, after.projects.currentProject)
-        : undefined,
+        : Promise.resolve(),
+      prefsChanged ? setPreferences(db, after.preferences) : Promise.resolve(),
       addProjects(db, newProjects.map(withId(after.projects.projects))),
       updateProjects(db, updatedProjects.map(withId(after.projects.projects))),
       addLists(db, newLists.map(withId(after.lists))),

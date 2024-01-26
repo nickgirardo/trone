@@ -4,10 +4,11 @@ import { Card } from "./reducers/Cards";
 import { List } from "./reducers/Lists";
 import { RootState } from "./store";
 import { WithId, fromId } from "./util";
+import { Preferences, defaultPrefs } from "./reducers/Preferences";
 
 let db: IDBPDatabase<Schema> | null = null;
 const dbName = "test_db";
-const dbVersion = 4;
+const dbVersion = 5;
 
 interface Schema extends DBSchema {
   projects: {
@@ -23,6 +24,10 @@ interface Schema extends DBSchema {
     value: WithId<Card>;
   };
   currentProject: { key: "data"; value: string | null };
+  preferences: {
+    key: "data";
+    value: Preferences;
+  };
 }
 
 export async function getDB() {
@@ -61,6 +66,14 @@ export async function initDB() {
           );
         });
       }
+      if (oldVersion <= 4) {
+        db.createObjectStore("preferences");
+
+        // Add default preferences
+        migration = migration.then(async function () {
+          await tx.objectStore("preferences").put(defaultPrefs, "data");
+        });
+      }
     },
   });
 
@@ -70,15 +83,17 @@ export async function initDB() {
 // TODO any
 export async function dumpDb(db: IDBPDatabase<Schema>): Promise<RootState> {
   const tx = db.transaction(
-    ["currentProject", "projects", "lists", "cards"],
+    ["currentProject", "projects", "lists", "cards", "preferences"],
     "readonly"
   );
-  const [currentProject, projects, lists, cards] = await Promise.all([
-    tx.objectStore("currentProject").get("data"),
-    tx.objectStore("projects").getAll(),
-    tx.objectStore("lists").getAll(),
-    tx.objectStore("cards").getAll(),
-  ]);
+  const [currentProject, projects, lists, cards, preferences] =
+    await Promise.all([
+      tx.objectStore("currentProject").get("data"),
+      tx.objectStore("projects").getAll(),
+      tx.objectStore("lists").getAll(),
+      tx.objectStore("cards").getAll(),
+      tx.objectStore("preferences").get("data"),
+    ]);
 
   return {
     projects: {
@@ -87,6 +102,7 @@ export async function dumpDb(db: IDBPDatabase<Schema>): Promise<RootState> {
     },
     lists: fromId(lists),
     cards: fromId(cards),
+    preferences: preferences || defaultPrefs,
   };
 }
 
@@ -96,6 +112,15 @@ export async function setCurrentProject(
 ) {
   const tx = db.transaction("currentProject", "readwrite");
   await tx.store.put(project, "data");
+  await tx.done;
+}
+
+export async function setPreferences(
+  db: IDBPDatabase<Schema>,
+  preferences: Preferences
+) {
+  const tx = db.transaction("preferences", "readwrite");
+  await tx.store.put(preferences, "data");
   await tx.done;
 }
 

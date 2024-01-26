@@ -44,3 +44,9 @@ export const fromId = <T>(xs: Array<WithId<T>>): { [k: string]: T } => {
   }
   return ret;
 };
+
+// Use this function to make sure that a value is never possible
+// Especially usefull with switches and enums
+export const assertNever = (x: never): never => {
+  throw new Error(`Unexpected: ${x}`);
+};

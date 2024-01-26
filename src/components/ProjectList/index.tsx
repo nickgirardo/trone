@@ -1,26 +1,29 @@
 import { MouseEventHandler, useState } from "react";
 import { useAppSelector, useAppDispatch, createAppSelector } from "../../store";
 import cn from "classnames";
-import { NewProjectModal } from "../modals/NewProject";
 import {
   createProject,
   editProject,
   moveProject,
   switchToProject,
 } from "../../reducers/Projects";
-import { EditableLabel } from "../EditableLabel";
 import {
   DragDropContext,
   Draggable,
   DropResult,
   Droppable,
 } from "react-beautiful-dnd";
+import { EditableLabel } from "../EditableLabel";
+import { NewProjectModal } from "../modals/NewProject";
+import { SettingsModal } from "../modals/Settings";
 
 import "./index.scss";
 
 export const ProjectList = () => {
   const [showNewProjectModal, setShowNewProjectModal] =
     useState<boolean>(false);
+
+  const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false);
 
   const projectsSelector = createAppSelector(
     [(state) => state.projects],
@@ -81,12 +84,21 @@ export const ProjectList = () => {
             )}
           </Droppable>
         </div>
-        <div
-          className="new-project"
-          onClick={() => setShowNewProjectModal(true)}
-        >
-          <button>+</button>
+        <div className="controls">
+          <div
+            className="new-project"
+            onClick={() => setShowNewProjectModal(true)}
+          >
+            +
+          </div>
+          <div className="settings" onClick={() => setShowSettingsModal(true)}>
+            ⚙
+          </div>
         </div>
+        <SettingsModal
+          isOpen={showSettingsModal}
+          closeModal={() => setShowSettingsModal(false)}
+        />
         <NewProjectModal
           isOpen={showNewProjectModal}
           handleNewProject={(name) => onModalComplete(name)}

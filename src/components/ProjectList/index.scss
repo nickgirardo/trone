@@ -34,24 +34,25 @@
     }
   }
 
-  .new-project {
-    background-color: #80b2df;
-    width: 42px;
+  .controls {
     display: flex;
-    align-content: center;
-    justify-content: center;
-    cursor: pointer;
+    flex-direction: row;
 
-    button {
-      // TODO properly clear button styles
-      appearance: none;
-      background: none;
-      border: none;
-      padding: 0;
+    .new-project,
+    .settings {
+      background-color: #80b2df;
+      width: 42px;
+      display: flex;
+      align-content: center;
+      justify-content: center;
       cursor: pointer;
 
       color: white;
       font-size: 24px;
+    }
+
+    .new-project {
+      margin-right: 2px;
     }
   }
 }

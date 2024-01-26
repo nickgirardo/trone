@@ -25,6 +25,11 @@
     left: calc(50vw - 25em);
   }
 
+  &.modal-lg {
+    width: 60em;
+    left: calc(50vw - 30em);
+  }
+
   .modal-body {
     padding: 1em 0;
   }
