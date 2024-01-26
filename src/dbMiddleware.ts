@@ -11,6 +11,8 @@ import {
   dumpDb,
   setPreferences,
   deleteCards,
+  deleteProjects,
+  deleteLists,
 } from "./db";
 import { diff, withId } from "./util";
 
@@ -23,11 +25,14 @@ export const dbMiddleware = (store: any) => (next: any) =>
 
     const db = await getDB();
 
-    const [newProjects, updatedProjects] = diff(
+    const [newProjects, updatedProjects, deletedProjects] = diff(
       before.projects.projects,
       after.projects.projects
     );
-    const [newLists, updatedLists] = diff(before.lists, after.lists);
+    const [newLists, updatedLists, deletedLists] = diff(
+      before.lists,
+      after.lists
+    );
     const [newCards, updatedCards, deletedCards] = diff(
       before.cards,
       after.cards
@@ -45,8 +50,10 @@ export const dbMiddleware = (store: any) => (next: any) =>
       prefsChanged ? setPreferences(db, after.preferences) : Promise.resolve(),
       addProjects(db, newProjects.map(withId(after.projects.projects))),
       updateProjects(db, updatedProjects.map(withId(after.projects.projects))),
+      deleteProjects(db, deletedProjects.map(withId(after.projects.projects))),
       addLists(db, newLists.map(withId(after.lists))),
       updateLists(db, updatedLists.map(withId(after.lists))),
+      deleteLists(db, deletedLists.map(withId(after.lists))),
       addCards(db, newCards.map(withId(after.cards))),
       updateCards(db, updatedCards.map(withId(after.cards))),
       deleteCards(db, deletedCards.map(withId(after.cards))),
