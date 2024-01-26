@@ -32,20 +32,16 @@
 
   .modal-body {
     padding: 1em 0;
-  }
-
-  .modal-footer {
-    .controls {
-      float: right;
-
-      :not(:last-child) {
-        margin-right: 0.5em;
-      }
-    }
+    max-height: 60vh;
+    overflow: auto;
   }
 
   h2 {
     border-bottom: 1px solid rgb(204, 204, 204);
+    margin: 0;
+  }
+
+  h3 {
     margin: 0;
   }
 }

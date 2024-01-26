@@ -175,6 +175,22 @@ export async function updateProject(
 ) {
   await putProjects(db, [project]);
 }
+export async function deleteProject(
+  db: IDBPDatabase<Schema>,
+  project: WithId<Project>
+) {
+  await deleteProjects(db, [project]);
+}
+export async function deleteProjects(
+  db: IDBPDatabase<Schema>,
+  projects: Array<WithId<Project>>
+) {
+  if (!projects.length) return;
+
+  const tx = db.transaction("cards", "readwrite");
+  await Promise.all(projects.map((p) => tx.store.delete(p.id)));
+  await tx.done;
+}
 
 export async function addLists(
   db: IDBPDatabase<Schema>,
@@ -194,6 +210,19 @@ export async function updateLists(
 export async function updateList(db: IDBPDatabase<Schema>, list: WithId<List>) {
   await putLists(db, [list]);
 }
+export async function deleteList(db: IDBPDatabase<Schema>, list: WithId<List>) {
+  await deleteLists(db, [list]);
+}
+export async function deleteLists(
+  db: IDBPDatabase<Schema>,
+  lists: Array<WithId<List>>
+) {
+  if (!lists.length) return;
+
+  const tx = db.transaction("lists", "readwrite");
+  await Promise.all(lists.map((l) => tx.store.delete(l.id)));
+  await tx.done;
+}
 
 export async function addCards(
   db: IDBPDatabase<Schema>,
@@ -201,8 +230,8 @@ export async function addCards(
 ) {
   await putCards(db, cards);
 }
-export async function addCard(db: IDBPDatabase<Schema>, cards: WithId<Card>) {
-  await putCards(db, [cards]);
+export async function addCard(db: IDBPDatabase<Schema>, card: WithId<Card>) {
+  await putCards(db, [card]);
 }
 export async function updateCards(
   db: IDBPDatabase<Schema>,
@@ -210,9 +239,20 @@ export async function updateCards(
 ) {
   await putCards(db, cards);
 }
-export async function updateCard(
+export async function updateCard(db: IDBPDatabase<Schema>, card: WithId<Card>) {
+  await putCards(db, [card]);
+}
+
+export async function deleteCard(db: IDBPDatabase<Schema>, card: WithId<Card>) {
+  await deleteCards(db, [card]);
+}
+export async function deleteCards(
   db: IDBPDatabase<Schema>,
-  cards: WithId<Card>
+  cards: Array<WithId<Card>>
 ) {
-  await putCards(db, [cards]);
+  if (!cards.length) return;
+
+  const tx = db.transaction("cards", "readwrite");
+  await Promise.all(cards.map((c) => tx.store.delete(c.id)));
+  await tx.done;
 }

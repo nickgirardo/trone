@@ -43,6 +43,7 @@ export const Card = ({ id, name, notes, index }: Props) => {
       </Draggable>
       <EditCardModal
         isOpen={showNewProjectModal}
+        id={id}
         name={name}
         notes={notes}
         handleUpdateCard={(name: string, notes: string) =>

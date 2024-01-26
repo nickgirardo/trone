@@ -1,10 +1,15 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, MouseEventHandler } from "react";
 import Modal from "react-modal";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { DelCardWarning } from "./Settings/Preferences";
+import { deleteCard } from "../../reducers/Cards";
+import { ConfirmDeleteCardModal } from "./ConfirmDeleteCard";
 
 import "./modal.scss";
 import "./edit-card.scss";
 
 interface Props {
+  id: string;
   name: string;
   notes: string;
   isOpen: boolean;
@@ -13,14 +18,33 @@ interface Props {
 }
 
 export const EditCardModal = ({
+  id,
   name,
   notes,
   isOpen,
   closeModal,
   handleUpdateCard,
 }: Props) => {
+  const dispatch = useAppDispatch();
+  const delCardWarning = useAppSelector(
+    (state) => state.preferences.delCardWarning
+  );
+
   const [newName, setName] = useState<string>(name);
   const [newNotes, setNotes] = useState<string>(notes);
+  const [showConfirmDeleteModal, setShowConfirmDeleteModal] =
+    useState<boolean>(false);
+
+  const startDeleteProcess: MouseEventHandler<HTMLButtonElement> = (ev) => {
+    if (delCardWarning === DelCardWarning.Never) {
+      dispatch(deleteCard(id));
+    } else {
+      setShowConfirmDeleteModal(true);
+    }
+
+    ev.preventDefault();
+    return false;
+  };
 
   return (
     <Modal
@@ -52,19 +76,26 @@ export const EditCardModal = ({
               />
             </div>
           </div>
-        </div>
-        <div className="modal-footer">
           <div className="controls">
+            <button onClick={() => closeModal()}>Cancel</button>
             <input
               type="submit"
               value="Update"
               onClick={() => handleUpdateCard(newName, newNotes)}
               disabled={!newName.length}
             />
-            <button onClick={() => closeModal()}>Cancel</button>
+          </div>
+          <div className="delete-card">
+            <h3>Delete Card</h3>
+            <button onClick={startDeleteProcess}>Delete</button>
           </div>
         </div>
       </form>
+      <ConfirmDeleteCardModal
+        isOpen={showConfirmDeleteModal}
+        handleConfirm={() => dispatch(deleteCard(id))}
+        closeModal={() => setShowConfirmDeleteModal(false)}
+      />
     </Modal>
   );
 };

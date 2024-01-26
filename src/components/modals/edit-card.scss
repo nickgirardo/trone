@@ -12,4 +12,15 @@
       }
     }
   }
+  .controls {
+    display: flex;
+    justify-content: end;
+
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+
+    :not(:last-child) {
+      margin-right: 0.5em;
+    }
+  }
 }

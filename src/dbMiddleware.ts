@@ -10,6 +10,7 @@ import {
   getDB,
   dumpDb,
   setPreferences,
+  deleteCards,
 } from "./db";
 import { diff, withId } from "./util";
 
@@ -27,7 +28,10 @@ export const dbMiddleware = (store: any) => (next: any) =>
       after.projects.projects
     );
     const [newLists, updatedLists] = diff(before.lists, after.lists);
-    const [newCards, updatedCards] = diff(before.cards, after.cards);
+    const [newCards, updatedCards, deletedCards] = diff(
+      before.cards,
+      after.cards
+    );
 
     const prefsChanged =
       before.preferences.delProjWarning !== after.preferences.delProjWarning ||
@@ -45,6 +49,7 @@ export const dbMiddleware = (store: any) => (next: any) =>
       updateLists(db, updatedLists.map(withId(after.lists))),
       addCards(db, newCards.map(withId(after.cards))),
       updateCards(db, updatedCards.map(withId(after.cards))),
+      deleteCards(db, deletedCards.map(withId(after.cards))),
     ]);
 
     console.log(await dumpDb(db));
