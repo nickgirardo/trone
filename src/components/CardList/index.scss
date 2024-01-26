@@ -27,9 +27,17 @@
     // Cut off long list names
     overflow: hidden;
     text-overflow: ellipsis;
+    // Avoid cutting off list names for long lists
+    flex-shrink: 0;
   }
 
   .new-card {
     margin-top: 0.5em;
+  }
+
+  .editable-label {
+    .primary-input {
+      width: 100%;
+    }
   }
 }

@@ -65,7 +65,11 @@ export const listsSlice = createSlice({
 
       state[id].index = newIndex;
     },
+    deleteLists: (state, action: PayloadAction<Array<string>>) => {
+      for (const id of action.payload) delete state[id];
+    },
   },
 });
 
-export const { createList, editList, moveList } = listsSlice.actions;
+export const { createList, editList, moveList, deleteLists } =
+  listsSlice.actions;

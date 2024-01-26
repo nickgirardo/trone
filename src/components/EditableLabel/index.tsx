@@ -2,11 +2,19 @@ import { ChangeEvent, MouseEventHandler, useRef, useState } from "react";
 
 interface Props {
   label: string;
+  placeholder?: string;
   onEdit: (updated: string) => void;
+  onDelete?: MouseEventHandler<HTMLButtonElement>;
   isEmptyOk?: boolean;
 }
 
-export const EditableLabel = ({ label, onEdit, isEmptyOk = false }: Props) => {
+export const EditableLabel = ({
+  label,
+  placeholder,
+  onEdit,
+  onDelete,
+  isEmptyOk = false,
+}: Props) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [newValue, setNewValue] = useState<string>(label);
 
@@ -30,15 +38,16 @@ export const EditableLabel = ({ label, onEdit, isEmptyOk = false }: Props) => {
   const onBlur = () => {
     // NOTE if this isn't queued it would eat the input event if the user blurred by clicking the
     // update button
-    queueMicrotask(() => setIsEditing(false));
+    setTimeout(() => setIsEditing(false), 200);
   };
 
   return (
-    <div>
+    <div className="editable-label">
       {isEditing ? (
         <form>
           <input
-            placeholder="List Name"
+            placeholder={placeholder}
+            className="primary-input"
             ref={inputRef}
             value={newValue}
             onBlur={onBlur}
@@ -47,12 +56,15 @@ export const EditableLabel = ({ label, onEdit, isEmptyOk = false }: Props) => {
             }
             onKeyDown={(ev) => ev.key === "Escape" && setIsEditing(false)}
           />
-          <input
-            type="submit"
-            value="Update"
-            onClick={onSubmit}
-            disabled={isEmptyOk || !newValue.length}
-          />
+          <div className="controls">
+            <input
+              type="submit"
+              value="Update"
+              onClick={onSubmit}
+              disabled={isEmptyOk || !newValue.length}
+            />
+            {onDelete && <button onClick={onDelete}>Delete</button>}
+          </div>
         </form>
       ) : (
         <span onClick={startEdit}>{label}</span>

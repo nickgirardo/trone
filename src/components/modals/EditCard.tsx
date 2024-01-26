@@ -2,7 +2,7 @@ import { ChangeEvent, useState, MouseEventHandler } from "react";
 import Modal from "react-modal";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { DelCardWarning } from "./Settings/Preferences";
-import { deleteCard } from "../../reducers/Cards";
+import { deleteCards } from "../../reducers/Cards";
 import { ConfirmModal } from "./Confirm";
 
 import "./modal.scss";
@@ -37,7 +37,7 @@ export const EditCardModal = ({
 
   const startDeleteProcess: MouseEventHandler<HTMLButtonElement> = (ev) => {
     if (delCardWarning === DelCardWarning.Never) {
-      dispatch(deleteCard(id));
+      dispatch(deleteCards([id]));
     } else {
       setShowConfirmDeleteModal(true);
     }
@@ -93,7 +93,7 @@ export const EditCardModal = ({
       </form>
       <ConfirmModal
         isOpen={showConfirmDeleteModal}
-        handleConfirm={() => dispatch(deleteCard(id))}
+        handleConfirm={() => dispatch(deleteCards([id]))}
         closeModal={() => setShowConfirmDeleteModal(false)}
         label="Are you sure you want to delete this card?"
         noUndo

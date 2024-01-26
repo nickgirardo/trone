@@ -89,11 +89,11 @@ export const cardsSlice = createSlice({
       if (action.payload.notes)
         state[action.payload.id].notes = action.payload.notes;
     },
-    deleteCard: (state, action: PayloadAction<string>) => {
-      delete state[action.payload];
+    deleteCards: (state, action: PayloadAction<Array<string>>) => {
+      for (const id of action.payload) delete state[id];
     },
   },
 });
 
-export const { createCard, moveCard, updateCard, deleteCard } =
+export const { createCard, moveCard, updateCard, deleteCards } =
   cardsSlice.actions;

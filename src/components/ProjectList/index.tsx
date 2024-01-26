@@ -134,6 +134,7 @@ const Project = ({ id, index, name, active, onClick }: ProjectProps) => {
           {active ? (
             <EditableLabel
               label={name}
+              placeholder="Project Name"
               onEdit={(name) => dispatch(editProject({ id, name }))}
             />
           ) : (

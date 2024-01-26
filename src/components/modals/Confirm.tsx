@@ -7,6 +7,7 @@ interface Props {
   closeModal: () => void;
   handleConfirm: () => void;
   label: string;
+  moreInfo?: string;
   noUndo?: boolean;
 }
 
@@ -15,6 +16,7 @@ export const ConfirmModal = ({
   closeModal,
   handleConfirm,
   label,
+  moreInfo,
   noUndo,
 }: Props) => (
   <Modal
@@ -25,6 +27,7 @@ export const ConfirmModal = ({
   >
     <h2>{label}</h2>
     <div className="modal-body">
+      {moreInfo && <div>{moreInfo}</div>}
       {noUndo && <div>This action cannot be undone!</div>}
       <div className="controls">
         <button onClick={closeModal}>Cancel</button>
