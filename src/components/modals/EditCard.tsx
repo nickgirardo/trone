@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { DelCardWarning } from "./Settings/Preferences";
 import { deleteCard } from "../../reducers/Cards";
-import { ConfirmDeleteCardModal } from "./ConfirmDeleteCard";
+import { ConfirmModal } from "./Confirm";
 
 import "./modal.scss";
 import "./edit-card.scss";
@@ -91,10 +91,12 @@ export const EditCardModal = ({
           </div>
         </div>
       </form>
-      <ConfirmDeleteCardModal
+      <ConfirmModal
         isOpen={showConfirmDeleteModal}
         handleConfirm={() => dispatch(deleteCard(id))}
         closeModal={() => setShowConfirmDeleteModal(false)}
+        label="Are you sure you want to delete this card?"
+        noUndo
       />
     </Modal>
   );
