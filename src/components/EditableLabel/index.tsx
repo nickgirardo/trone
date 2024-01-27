@@ -1,4 +1,5 @@
 import { ChangeEvent, MouseEventHandler, useRef, useState } from "react";
+import cn from "classnames";
 
 interface Props {
   label: string;
@@ -42,7 +43,7 @@ export const EditableLabel = ({
   };
 
   return (
-    <div className="editable-label">
+    <div className={cn("editable-label", isEditing && "editing")}>
       {isEditing ? (
         <form>
           <input

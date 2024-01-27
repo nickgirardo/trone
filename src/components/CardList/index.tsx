@@ -53,12 +53,12 @@ export const CardList = ({ id, name, index }: Props) => {
     dispatch(deleteLists([id]));
   };
 
-  const cardsWillBeDeletedMessage = () => {
+  const cardsWillBeDeletedMessage = (() => {
     if (!cards.length) return undefined;
     if (cards.length === 1)
       return "This will cause the card that belongs to it to be deleted.";
     return `This will cause the ${cards.length} cards that belong to it to be deleted.`;
-  };
+  })();
 
   return (
     <>
@@ -112,7 +112,7 @@ export const CardList = ({ id, name, index }: Props) => {
         closeModal={() => setShowConfirmDeleteModal(false)}
         handleConfirm={deleteListAndRelatedCards}
         label="Are you sure you want to delete this list?"
-        moreInfo={cardsWillBeDeletedMessage()}
+        moreInfo={cardsWillBeDeletedMessage}
         noUndo
       />
     </>

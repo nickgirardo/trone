@@ -29,6 +29,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 
+    // Don't set a max width if we're editing the project name
+    &:has(.editable-label.editing) {
+      max-width: unset;
+    }
+
     &.active {
       background-color: #d59bbe;
     }

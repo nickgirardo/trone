@@ -187,7 +187,7 @@ export async function deleteProjects(
 ) {
   if (!projects.length) return;
 
-  const tx = db.transaction("cards", "readwrite");
+  const tx = db.transaction("projects", "readwrite");
   await Promise.all(projects.map((p) => tx.store.delete(p.id)));
   await tx.done;
 }

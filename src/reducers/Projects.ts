@@ -37,6 +37,25 @@ export const projectsSlice = createSlice({
       if (action.payload.name)
         state.projects[action.payload.id].name = action.payload.name;
     },
+    deleteProjects: (state, action: PayloadAction<Array<string>>) => {
+      for (const id of action.payload) delete state.projects[id];
+
+      const remainingProjects = Object.keys(state.projects);
+
+      // We've deleted the current project
+      if (
+        state.currentProject &&
+        !remainingProjects.includes(state.currentProject)
+      ) {
+        if (remainingProjects.length === 0) {
+          // We have no more projects
+          state.currentProject = null;
+        } else {
+          // Set the current project to some arbitrary project which was not deleted
+          state.currentProject = remainingProjects[0];
+        }
+      }
+    },
     moveProject: (
       state,
       action: PayloadAction<{ id: string; newIndex: number }>
@@ -67,5 +86,10 @@ export const projectsSlice = createSlice({
   },
 });
 
-export const { createProject, editProject, moveProject, switchToProject } =
-  projectsSlice.actions;
+export const {
+  createProject,
+  editProject,
+  deleteProjects,
+  moveProject,
+  switchToProject,
+} = projectsSlice.actions;
