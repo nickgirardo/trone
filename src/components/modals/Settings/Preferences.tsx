@@ -2,29 +2,16 @@ import { useState } from "react";
 import { RadioGroup } from "../../RadioGroup";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import {
+  DelCardWarning,
+  DelListWarning,
+  DelProjWarning,
   setDelCardWarning,
   setDelListWarning,
   setDelProjWarning,
 } from "../../../reducers/Preferences";
+import { Persistence } from "./Persistence";
 
 import "./preferences.scss";
-
-export enum DelProjWarning {
-  Always = "Always",
-  Never = "Never",
-  OnlyWithLists = "Only if it has lists",
-}
-
-export enum DelListWarning {
-  Always = "Always",
-  Never = "Never",
-  OnlyWithCards = "Only if it has cards",
-}
-
-export enum DelCardWarning {
-  Always = "Always",
-  Never = "Never",
-}
 
 export const Preferences = () => {
   const dispatch = useAppDispatch();
@@ -44,7 +31,9 @@ export const Preferences = () => {
 
   return (
     <div className="preferences">
+      <h3>Preferences</h3>
       <RadioGroup
+        className="preference-item"
         label="Warn before deleting projects"
         name="del-project-warning"
         options={[
@@ -59,6 +48,7 @@ export const Preferences = () => {
         }}
       />
       <RadioGroup
+        className="preference-item"
         label="Warn before deleting lists"
         name="del-lists-warning"
         options={[
@@ -73,6 +63,7 @@ export const Preferences = () => {
         }}
       />
       <RadioGroup
+        className="preference-item"
         label="Warn before deleting cards"
         name="del-cards-warning"
         options={[DelCardWarning.Always, DelCardWarning.Never]}
@@ -82,6 +73,7 @@ export const Preferences = () => {
           dispatch(setDelCardWarning(p));
         }}
       />
+      <Persistence />
     </div>
   );
 };

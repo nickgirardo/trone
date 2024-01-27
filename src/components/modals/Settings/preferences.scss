@@ -1,7 +1,7 @@
 .preferences {
   padding-left: 0.5em;
 
-  .radio-group:not(:last-child) {
+  > .preference-item:not(:last-child) {
     margin-bottom: 0.25em;
   }
 }

@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, MouseEventHandler } from "react";
 import Modal from "react-modal";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { DelCardWarning } from "./Settings/Preferences";
+import { DelCardWarning } from "../../reducers/Preferences";
 import { deleteCards } from "../../reducers/Cards";
 import { ConfirmModal } from "./Confirm";
 

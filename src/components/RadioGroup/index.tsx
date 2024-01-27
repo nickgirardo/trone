@@ -1,6 +1,9 @@
+import cn from "classnames";
+
 import "./index.scss";
 
 interface Props<T extends { toString: () => string }> {
+  className?: string;
   label: string;
   name: string;
   options: Array<T>;
@@ -10,6 +13,7 @@ interface Props<T extends { toString: () => string }> {
 }
 
 export function RadioGroup<T extends { toString: () => string }>({
+  className,
   label,
   name,
   options,
@@ -19,7 +23,7 @@ export function RadioGroup<T extends { toString: () => string }>({
   toKey = (x) => x.toString(),
 }: Props<T>) {
   return (
-    <div className="radio-group">
+    <div className={cn("radio-group", className)}>
       <div className="label">{label}</div>
       <div className="radio-inputs">
         {options.map((opt: T) => (
