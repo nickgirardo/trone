@@ -42,13 +42,13 @@ export const NewProjectModal = ({
         </div>
         <div className="modal-footer">
           <div className="controls">
-            <button onClick={() => closeModal()}>Cancel</button>
             <input
               type="submit"
               value="New Project"
               onClick={onSubmit}
               disabled={!name.length}
             />
+            <button onClick={() => closeModal()}>Cancel</button>
           </div>
         </div>
       </form>

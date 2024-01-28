@@ -77,13 +77,13 @@ export const EditCardModal = ({
             </div>
           </div>
           <div className="controls">
-            <button onClick={() => closeModal()}>Cancel</button>
             <input
               type="submit"
               value="Update"
               onClick={() => handleUpdateCard(newName, newNotes)}
               disabled={!newName.length}
             />
+            <button onClick={() => closeModal()}>Cancel</button>
           </div>
           <div className="delete-card">
             <h3>Delete Card</h3>
