@@ -1,6 +1,10 @@
 .radio-group {
+  input[type="radio"] {
+    margin-left: 0;
+  }
+
   .radio-inputs {
-    margin-left: 0.5em;
+    margin-left: 1em;
 
     > label:not(:last-child) {
       margin-right: 1em;
