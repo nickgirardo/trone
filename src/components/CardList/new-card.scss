@@ -1,0 +1,13 @@
+.new-card {
+  padding: 0 0.5em;
+
+  .inputs {
+    display: flex;
+    width: 100%;
+
+    > input[type="text"] {
+      flex-grow: 1;
+      margin-right: 0.25em;
+    }
+  }
+}
