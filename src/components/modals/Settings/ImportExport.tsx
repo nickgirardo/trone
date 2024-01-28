@@ -4,6 +4,8 @@ import { ConfirmModal } from "../Confirm";
 import { readFile } from "../../../util";
 import { RootState, resetForImport, useAppDispatch } from "../../../store";
 
+import "./import-export.scss";
+
 export const ImportExport = () => {
   const dispatch = useAppDispatch();
 

@@ -1,7 +1,11 @@
 .settings-modal {
   .modal-body {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+
+    > :not(:last-child) {
+      margin-bottom: 0.5em;
+    }
   }
   .tab-select {
     display: flex;

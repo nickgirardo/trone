@@ -1,0 +1,9 @@
+.import-export {
+  .controls {
+    margin-left: 0.5em;
+
+    button:not(:last-child) {
+      margin-right: 0.25em;
+    }
+  }
+}

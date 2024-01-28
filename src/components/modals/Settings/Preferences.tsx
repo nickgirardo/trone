@@ -9,8 +9,6 @@ import {
   setDelListWarning,
   setDelProjWarning,
 } from "../../../reducers/Preferences";
-import { Persistence } from "./Persistence";
-import { ImportExport } from "./ImportExport";
 
 import "./preferences.scss";
 
@@ -74,8 +72,6 @@ export const Preferences = () => {
           dispatch(setDelCardWarning(p));
         }}
       />
-      <Persistence />
-      <ImportExport />
     </div>
   );
 };
