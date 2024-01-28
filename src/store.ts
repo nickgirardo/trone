@@ -9,10 +9,18 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { dbMiddleware } from "./dbMiddleware";
 
 // Reducers/ Slices
-import { Project, projectsSlice } from "./reducers/Projects";
-import { List, listsSlice } from "./reducers/Lists";
-import { Card, cardsSlice } from "./reducers/Cards";
-import { Preferences, preferencesSlice } from "./reducers/Preferences";
+import {
+  Project,
+  projectsSlice,
+  setProjectsForImport,
+} from "./reducers/Projects";
+import { List, listsSlice, setListsForImport } from "./reducers/Lists";
+import { Card, cardsSlice, setCardsForImport } from "./reducers/Cards";
+import {
+  Preferences,
+  preferencesSlice,
+  setPrefsForImport,
+} from "./reducers/Preferences";
 
 // NOTE defining this manually rather than using `ReturnType<typeof store.getState>` to avoid
 // circular references in the type system :(
@@ -56,6 +64,13 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+export const resetForImport = (dispatch: AppDispatch, data: RootState) => {
+  dispatch(setProjectsForImport(data.projects));
+  dispatch(setListsForImport(data.lists));
+  dispatch(setCardsForImport(data.cards));
+  dispatch(setPrefsForImport(data.preferences));
+};
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

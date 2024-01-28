@@ -80,7 +80,6 @@ export async function initDB() {
   await migration;
 }
 
-// TODO any
 export async function dumpDb(db: IDBPDatabase<Schema>): Promise<RootState> {
   const tx = db.transaction(
     ["currentProject", "projects", "lists", "cards", "preferences"],

@@ -1,22 +1,25 @@
 import Modal from "react-modal";
 
 import "./modal.scss";
+import { ReactNode } from "react";
 
 interface Props {
   isOpen: boolean;
   closeModal: () => void;
   handleConfirm: () => void;
+  allowConfirm?: boolean;
   label: string;
-  moreInfo?: string;
+  children?: ReactNode;
   noUndo?: boolean;
 }
 
 export const ConfirmModal = ({
   isOpen,
   closeModal,
+  allowConfirm = true,
   handleConfirm,
   label,
-  moreInfo,
+  children,
   noUndo,
 }: Props) => (
   <Modal
@@ -27,11 +30,13 @@ export const ConfirmModal = ({
   >
     <h2>{label}</h2>
     <div className="modal-body">
-      {moreInfo && <div>{moreInfo}</div>}
+      {children}
       {noUndo && <div>This action cannot be undone!</div>}
       <div className="controls">
         <button onClick={closeModal}>Cancel</button>
-        <button onClick={handleConfirm}>Confirm</button>
+        <button onClick={handleConfirm} disabled={!allowConfirm}>
+          Confirm
+        </button>
       </div>
     </div>
   </Modal>

@@ -50,3 +50,13 @@ export const fromId = <T>(xs: Array<WithId<T>>): { [k: string]: T } => {
 export const assertNever = (x: never): never => {
   throw new Error(`Unexpected: ${x}`);
 };
+
+// Helper to use `FileReader` with a Promise interface
+export const readFile = (file: File): Promise<string> =>
+  new Promise((res, rej) => {
+    const reader = new FileReader();
+    // NOTE since we're using `.readAsText` the string cast here should be fine
+    reader.onload = () => res(reader.result as string);
+    reader.onerror = rej;
+    reader.readAsText(file);
+  });

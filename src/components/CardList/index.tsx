@@ -112,9 +112,10 @@ export const CardList = ({ id, name, index }: Props) => {
         closeModal={() => setShowConfirmDeleteModal(false)}
         handleConfirm={deleteListAndRelatedCards}
         label="Are you sure you want to delete this list?"
-        moreInfo={cardsWillBeDeletedMessage}
         noUndo
-      />
+      >
+        {cardsWillBeDeletedMessage && <div>{cardsWillBeDeletedMessage}</div>}
+      </ConfirmModal>
     </>
   );
 };

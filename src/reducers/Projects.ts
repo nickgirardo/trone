@@ -13,13 +13,15 @@ const initialState: {
   currentProject: null as string | null,
 };
 
-// TODO potential future actions
-// - rename project
-// - delete project
 export const projectsSlice = createSlice({
   name: "projects",
   initialState,
   reducers: {
+    // NOTE the unweildy name for this action is meant to discourage its use outside of import
+    setProjectsForImport: (
+      _state,
+      action: PayloadAction<typeof initialState>
+    ) => action.payload,
     createProject: (state, action: PayloadAction<string>) => {
       const id = crypto.randomUUID();
       state.projects[id] = {
@@ -80,13 +82,14 @@ export const projectsSlice = createSlice({
 
       state.projects[id].index = newIndex;
     },
-    switchToProject: (state, action: PayloadAction<string>) => {
+    switchToProject: (state, action: PayloadAction<string | null>) => {
       state.currentProject = action.payload;
     },
   },
 });
 
 export const {
+  setProjectsForImport,
   createProject,
   editProject,
   deleteProjects,

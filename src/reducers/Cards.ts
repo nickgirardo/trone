@@ -16,6 +16,9 @@ export const cardsSlice = createSlice({
   name: "cards",
   initialState,
   reducers: {
+    // NOTE the unweildy name for this action is meant to discourage its use outside of import
+    setCardsForImport: (_state, action: PayloadAction<typeof initialState>) =>
+      action.payload,
     createCard: (
       state,
       action: PayloadAction<{ list: string; name: string }>
@@ -95,5 +98,10 @@ export const cardsSlice = createSlice({
   },
 });
 
-export const { createCard, moveCard, updateCard, deleteCards } =
-  cardsSlice.actions;
+export const {
+  setCardsForImport,
+  createCard,
+  moveCard,
+  updateCard,
+  deleteCards,
+} = cardsSlice.actions;

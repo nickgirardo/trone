@@ -15,6 +15,9 @@ export const listsSlice = createSlice({
   name: "lists",
   initialState,
   reducers: {
+    // NOTE the unweildy name for this action is meant to discourage its use outside of import
+    setListsForImport: (_state, action: PayloadAction<typeof initialState>) =>
+      action.payload,
     createList: (
       state,
       action: PayloadAction<{ project: string; name: string }>
@@ -71,5 +74,10 @@ export const listsSlice = createSlice({
   },
 });
 
-export const { createList, editList, moveList, deleteLists } =
-  listsSlice.actions;
+export const {
+  setListsForImport,
+  createList,
+  editList,
+  moveList,
+  deleteLists,
+} = listsSlice.actions;

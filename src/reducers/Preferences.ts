@@ -34,6 +34,9 @@ export const preferencesSlice = createSlice({
   name: "preferences",
   initialState: defaultPrefs,
   reducers: {
+    // NOTE the unweildy name for this action is meant to discourage its use outside of import
+    setPrefsForImport: (_state, action: PayloadAction<typeof defaultPrefs>) =>
+      action.payload,
     setDelProjWarning: (state, action: PayloadAction<DelProjWarning>) => {
       state.delProjWarning = action.payload;
     },
@@ -46,5 +49,9 @@ export const preferencesSlice = createSlice({
   },
 });
 
-export const { setDelProjWarning, setDelListWarning, setDelCardWarning } =
-  preferencesSlice.actions;
+export const {
+  setPrefsForImport,
+  setDelProjWarning,
+  setDelListWarning,
+  setDelCardWarning,
+} = preferencesSlice.actions;

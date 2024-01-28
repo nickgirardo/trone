@@ -213,9 +213,10 @@ const Project = ({
         closeModal={() => setShowConfirmDeleteModal(false)}
         handleConfirm={onDelete}
         label="Are you sure you want to delete this project?"
-        moreInfo={listsWillBeDeletedMessage}
         noUndo
-      />
+      >
+        {listsWillBeDeletedMessage && <div>{listsWillBeDeletedMessage}</div>}
+      </ConfirmModal>
     </>
   );
 };
