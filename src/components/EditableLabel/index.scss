@@ -1,0 +1,5 @@
+.editable-label {
+  .controls > :not(:last-child) {
+    margin-right: 0.25em;
+  }
+}

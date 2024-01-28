@@ -36,6 +36,10 @@
   }
 
   .editable-label {
+    &.editing {
+      margin-bottom: 0.25em;
+    }
+
     .primary-input {
       width: 100%;
     }

@@ -1,6 +1,8 @@
 import { ChangeEvent, MouseEventHandler, useRef, useState } from "react";
 import cn from "classnames";
 
+import "./index.scss";
+
 interface Props {
   label: string;
   placeholder?: string;

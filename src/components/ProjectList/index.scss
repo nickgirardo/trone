@@ -61,7 +61,16 @@
     }
   }
 
-  .editable-label .controls {
-    display: inline;
+  .editable-label {
+    .primary-input {
+      margin-right: 0.25em;
+    }
+    .controls {
+      display: inline;
+
+      > :not(:last-child) {
+        margin-right: 0.25em;
+      }
+    }
   }
 }
