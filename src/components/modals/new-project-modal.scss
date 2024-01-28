@@ -4,4 +4,13 @@
       width: 100%;
     }
   }
+
+  .controls {
+    display: flex;
+    justify-content: end;
+
+    > :not(:last-child) {
+      margin-right: 0.25em;
+    }
+  }
 }
