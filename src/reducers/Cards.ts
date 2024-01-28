@@ -86,10 +86,10 @@ export const cardsSlice = createSlice({
       state,
       action: PayloadAction<{ id: string; name?: string; notes?: string }>
     ) => {
-      if (action.payload.name)
+      if (action.payload.name !== undefined)
         state[action.payload.id].name = action.payload.name;
 
-      if (action.payload.notes)
+      if (action.payload.notes !== undefined)
         state[action.payload.id].notes = action.payload.notes;
     },
     deleteCards: (state, action: PayloadAction<Array<string>>) => {
