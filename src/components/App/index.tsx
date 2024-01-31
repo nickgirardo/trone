@@ -28,16 +28,13 @@ function App() {
   return (
     <div className="app">
       <ProjectList />
-      {currentProject === null ? (
-        <EmptyProjectBody />
-      ) : (
-        <ProjectBody project={currentProject} lists={lists} />
-      )}
+      <div className="app-main">
+        {currentProject && (
+          <ProjectBody project={currentProject} lists={lists} />
+        )}
+      </div>
     </div>
   );
 }
-
-// TODO placeholder
-const EmptyProjectBody = () => <></>;
 
 export default App;
