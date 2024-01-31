@@ -1,0 +1,20 @@
+.new-project-container {
+  .first-project-helper {
+    position: absolute;
+    // 42px from header height
+    // TODO store this value somewhere
+    top: calc(42px + 0.5em);
+
+    font-size: medium;
+    color: #213547;
+
+    background-color: #cdddec;
+    border-radius: 4px;
+    box-shadow: 2px 1px 1px #abafb3;
+    padding: 0.5em;
+
+    .icon {
+      text-align: center;
+    }
+  }
+}

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useAppSelector, useAppDispatch, createAppSelector } from "../../store";
 import {
-  createProject,
   deleteProjects,
   moveProject,
   switchToProject,
@@ -9,16 +8,13 @@ import {
 import { deleteCards } from "../../reducers/Cards";
 import { deleteLists } from "../../reducers/Lists";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
-import { NewProjectModal } from "../modals/NewProject";
 import { SettingsModal } from "../modals/Settings";
 import { Project } from "./Project";
+import { NewProject } from "./NewProject";
 
 import "./index.scss";
 
 export const ProjectList = () => {
-  const [showNewProjectModal, setShowNewProjectModal] =
-    useState<boolean>(false);
-
   const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false);
 
   const projectsSelector = createAppSelector(
@@ -39,11 +35,6 @@ export const ProjectList = () => {
   const { projects, currentProject, lists, cards } =
     useAppSelector(projectsSelector);
   const dispatch = useAppDispatch();
-
-  const onModalComplete = (name: string) => {
-    dispatch(createProject(name));
-    setShowNewProjectModal(false);
-  };
 
   const setCurrentProject = (id: string) => {
     if (id !== currentProject) dispatch(switchToProject(id));
@@ -102,12 +93,7 @@ export const ProjectList = () => {
           </Droppable>
         </div>
         <div className="controls">
-          <div
-            className="new-project"
-            onClick={() => setShowNewProjectModal(true)}
-          >
-            +
-          </div>
+          <NewProject showFirstProjectHelper={projects.length === 0} />
           <div className="settings" onClick={() => setShowSettingsModal(true)}>
             ⚙
           </div>
@@ -115,11 +101,6 @@ export const ProjectList = () => {
         <SettingsModal
           isOpen={showSettingsModal}
           closeModal={() => setShowSettingsModal(false)}
-        />
-        <NewProjectModal
-          isOpen={showNewProjectModal}
-          handleNewProject={(name) => onModalComplete(name)}
-          closeModal={() => setShowNewProjectModal(false)}
         />
       </DragDropContext>
     </div>
