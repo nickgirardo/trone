@@ -1,4 +1,7 @@
 .new-project-container {
+  display: flex;
+  justify-content: center;
+
   .first-project-helper {
     position: absolute;
     // 42px from header height
