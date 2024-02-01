@@ -1,5 +1,6 @@
 import { ProjectList } from "../ProjectList";
 import { ProjectBody } from "../ProjectBody";
+import { MobileWarning } from "../MobileWarning";
 import { createAppSelector, useAppSelector } from "../../store";
 
 import "./index.scss";
@@ -27,6 +28,7 @@ function App() {
 
   return (
     <div className="app">
+      <MobileWarning />
       <ProjectList />
       <div className="app-main">
         {currentProject && (
