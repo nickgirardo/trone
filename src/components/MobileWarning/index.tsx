@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./index.scss";
 
 export const MobileWarning = () => {
-  const [showWarning, setShowWarning] = useState<boolean>(true);
+  const [showWarning, setShowWarning] = useState<boolean>(false);
 
   if (!showWarning) return <></>;
 
