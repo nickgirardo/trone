@@ -17,9 +17,11 @@ export const NewList = ({ project }: { project: string }) => {
   return (
     <div className="new-list">
       <form onSubmit={(e) => e.preventDefault()}>
-        <label>
-          Create a new list
+        <label htmlFor={`new-list-${project}`}>Create a new list</label>
+        <div className="controls">
           <input
+            id={`new-list-${project}`}
+            type="text"
             value={name}
             onChange={(ev: ChangeEvent<HTMLInputElement>) =>
               setName(ev.target.value)
@@ -27,13 +29,13 @@ export const NewList = ({ project }: { project: string }) => {
             placeholder="List name"
             required
           />
-        </label>
-        <input
-          type="submit"
-          onClick={handleCreateList}
-          value="Ok"
-          disabled={name.length === 0}
-        />
+          <input
+            type="submit"
+            onClick={handleCreateList}
+            value="Ok"
+            disabled={name.length === 0}
+          />
+        </div>
       </form>
     </div>
   );
