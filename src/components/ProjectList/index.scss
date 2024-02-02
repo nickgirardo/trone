@@ -49,6 +49,7 @@
       width: 42px;
       display: flex;
       align-content: center;
+      align-items: center;
       justify-content: center;
       cursor: pointer;
 
@@ -58,6 +59,11 @@
 
     .new-project {
       margin-right: 2px;
+    }
+
+    .settings .gear-icon {
+      width: 18px;
+      height: 18px;
     }
   }
 

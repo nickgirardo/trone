@@ -13,6 +13,7 @@ import { Project } from "./Project";
 import { NewProject } from "./NewProject";
 
 import "./index.scss";
+import gearIcon from "../../assets/gear.svg";
 
 export const ProjectList = () => {
   const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false);
@@ -95,7 +96,11 @@ export const ProjectList = () => {
         <div className="controls">
           <NewProject showFirstProjectHelper={projects.length === 0} />
           <div className="settings" onClick={() => setShowSettingsModal(true)}>
-            ⚙
+            <img
+              src={gearIcon}
+              className="icon gear-icon"
+              alt="Settings Icon"
+            />
           </div>
         </div>
         <SettingsModal
