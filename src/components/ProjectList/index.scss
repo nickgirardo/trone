@@ -10,9 +10,12 @@
   background-color: #6787a4;
 
   .projects-inner {
+    // TODO magic number comes from width of controls
+    max-width: calc(100vw - 86px);
     height: 100%;
     display: flex;
     flex-direction: row;
+    overflow: auto;
   }
 
   .project {

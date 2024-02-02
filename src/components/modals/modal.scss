@@ -30,6 +30,16 @@
     left: calc(50vw - 30em);
   }
 
+  @media screen and (max-width: 719px) {
+    &.modal-sm,
+    &.modal-md,
+    &.modal-lg {
+      width: calc(100vw - 8px);
+      left: 4px;
+      right: 4px;
+    }
+  }
+
   .modal-body {
     padding: 1em 0;
     max-height: 60vh;
