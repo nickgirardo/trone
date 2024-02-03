@@ -2,6 +2,8 @@
 
 Minimal kanban-esque tool
 
+[Try it live](https://nickgirardo.com/projects/trone/index.html)
+
 Many features of trello, planka, et al can be very useful for many users, but I find them distracting and overwhelming for my basic use cases. As such, I've set out to build an absolutely minimal kanban tool. The list of non-features should help explain my use case
 
 Non-features:
