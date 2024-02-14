@@ -64,3 +64,7 @@ Despite being entirely static, this application makes no attempt to function as 
 Currently changes in one instance of Trone are not reflected in other open instances of Trone.
 
 For better or worse, Trone uses IndexedDB to persist data. IndexedDB lacks observers (there was [a proposal to add them](https://github.com/WICG/indexed-db-observers), but it appears to have stalled). Observers would allow us to listen to changes in the db and update our applications live state (currently Redux). Other similar browser technologies, specifically localStorage, do support observers via the [window.storage event](https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event). LocalStorage has it's own issues of course, but it might make sense to have a single `lastUpdated` which forces a reload of db storage into application state when changed by another running instance.
+
+### Cross-device syncing
+
+One method I've considered for enabling cross-device syncing without users' losing control of their data is something a "Bring Your Own Storage" approach. The idea is that users would be able to (optionally) set up their own data store (e.g. S3 bucket) and enter all of the information for accessing it in Trone. This would likely have the drawback of being a fairly involved process to set up.
