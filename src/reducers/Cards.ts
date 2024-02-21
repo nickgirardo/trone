@@ -9,9 +9,6 @@ export type Card = {
 
 const initialState: { [k: string]: Card } = {};
 
-// TODO potential future actions
-// - rename card
-// - delete card
 export const cardsSlice = createSlice({
   name: "cards",
   initialState,

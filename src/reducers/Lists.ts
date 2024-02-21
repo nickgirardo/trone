@@ -8,9 +8,6 @@ export type List = {
 
 const initialState: { [k: string]: List } = {};
 
-// TODO potential future actions
-// - rename list
-// - delete list
 export const listsSlice = createSlice({
   name: "lists",
   initialState,
