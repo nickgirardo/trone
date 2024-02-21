@@ -4,9 +4,7 @@
 
   .first-project-helper {
     position: absolute;
-    // 42px from header height
-    // TODO store this value somewhere
-    top: calc(42px + 0.5em);
+    top: calc(var(--head-height) + 0.5em);
 
     background-color: var(--color-list-bg);
     border-radius: 4px;

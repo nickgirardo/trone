@@ -4,8 +4,7 @@
 
   background-color: var(--color-list-bg);
   height: min-content;
-  // TODO shouldn't be writing this out like this, very fragile
-  max-height: calc(100vh - 42px - 1em);
+  max-height: calc(100vh - var(--head-height) - 1em);
   width: 280px;
   padding: 1em 0.5em;
   margin: 0.5em 0.25em;

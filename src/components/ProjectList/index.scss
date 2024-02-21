@@ -1,7 +1,7 @@
 .project-list {
   width: 100vw;
-  height: 42px;
-  min-height: 42px;
+  height: var(--head-height);
+  min-height: var(--head-height);
 
   display: flex;
   flex-direction: row;
@@ -49,7 +49,7 @@
     .new-project,
     .settings {
       background-color: var(--color-head-control-bg);
-      width: 42px;
+      width: var(--head-height);
       display: flex;
       align-content: center;
       align-items: center;
