@@ -8,12 +8,9 @@
     // TODO store this value somewhere
     top: calc(42px + 0.5em);
 
-    font-size: medium;
-    color: #213547;
-
-    background-color: #cdddec;
+    background-color: var(--color-list-bg);
     border-radius: 4px;
-    box-shadow: 2px 1px 1px #abafb3;
+    box-shadow: 2px 1px 1px var(--color-shadow);
     padding: 0.5em;
 
     .icon {

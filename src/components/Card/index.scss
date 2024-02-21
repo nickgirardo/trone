@@ -1,9 +1,9 @@
 .card {
   margin: 0.25em;
   padding: 0.25em 0.5em;
-  background-color: white;
+  background-color: var(--color-card-bg);
   border-radius: 2px;
-  box-shadow: 2px 1px 1px #bec6cc;
+  box-shadow: 2px 1px 1px var(--color-shadow-light);
   hyphens: auto;
 
   display: flex;

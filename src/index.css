@@ -1,10 +1,24 @@
 :root {
+  --color-text-primary: #213546;
+  --color-text-white: #ffffff;
+  --color-main-bg: #bec6cc;
+  --color-list-bg: #cdddec;
+  --color-card-bg: #ffffff;
+
+  --color-shadow: #abafb3;
+  --color-shadow-light: #bec6cc;
+
+  /* Header/ project list colors */
+  --color-head-bg: #6787a4;
+  --color-head-entry-bg: #bd7ca3;
+  --color-head-entry-active-bg: #d59bbe;
+  --color-head-control-bg: #80b2df;
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color: #213547;
-  background-color: #ffffff;
+  color: var(--color-text-primary);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,19 +29,6 @@
 * {
   box-sizing: border-box;
 }
-
-/* TODO dark-mode stylings */
-/*
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-  }
-  a:hover {
-    color: #ce6922;
-  }
-}
-*/
 
 body {
   margin: 0;

@@ -1,13 +1,13 @@
 // TODO should create a CardListLike which this and CardList "inherit" from
 .new-list {
-  background-color: #cdddec;
+  background-color: var(--color-list-bg);
   height: min-content;
   width: 280px;
   min-width: 280px;
   padding: 1em 0.5em;
   margin: 0.5em 0.25em;
   border-radius: 4px;
-  box-shadow: 2px 1px 1px #abafb3;
+  box-shadow: 2px 1px 1px var(--color-shadow);
 
   form {
     padding: 0 0.5em;
